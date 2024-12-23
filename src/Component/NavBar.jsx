@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,26 +12,22 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useNavigate } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../firebase/firebase.jsx';
-
+import { useAuth } from '../Auth/useAuthForm.jsx';
 //Name of buttons in navbar
-const pages = ['Home', 'Features', 'Contact'];
+const pages = ['Dashboard', 'Features', 'Contact'];
 
 //Items of menu in profile icon
-const settings = ['Profile',  'Dashboard', 'Log Out'];
+const settings = ['Profile',  'Log Out'];
 
 function NavBar() {
-
-  //Use to navigate to the other page
   const navigate = useNavigate();
-
   //To open the menu in profile picture 
   const [anchorElUser, setAnchorElUser] = useState(null);
   
-  //To check if user log in or not
-  const [user, setUser] = useState(null);
+  const authForm = useAuth();
 
+  const {user,handleSignOut} = authForm;
+  
   // Open user settings menu
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -42,40 +38,28 @@ function NavBar() {
     setAnchorElUser(null); 
   };
 
-  
-  // Handle user logout
-  const handleSignOut = async () => {
-    await signOut(auth)
-    navigate('/login'); // Redirect to login page after sign out
-  };
-
   // Navigate to pages or actions
   const navigatePage = (event) => {
     //Current target is refer to the event which happended in current
     const value = event.currentTarget.value;
-    if (value) {
+    if (value === 'Log In') {
+      navigate(`/`);
+    } else {
       navigate(`/${value}`);
     }
   };
 
   // Handle menu item clicks
-  const handleMenuClick = (setting) => {
-    if (setting === 'Log Out') {
-      handleSignOut();//For log out
-    } 
-    handleCloseUserMenu();
-  };
+  // const handleMenuClick = (setting) => {
+  //   if (setting === 'Log Out') {
+  //     handleSignOut();//For log out
+  //   } 
+  //   else {
+  //     handleCloseUserMenu();
+  //   }
+  // };
 
-  // Check for authentication state
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      console.log(currentUser) 
-    });
-    return () => unsubscribe();//To close listener of onAuthStateChanged
-  }, []);
-
-  return (
+  return  (
     <AppBar position="fixed" sx={{height: '64px'}}>
       <Container maxWidth="xl" sx={{ backgroundColor: 'white' }}>
         <Toolbar disableGutters>
@@ -115,11 +99,9 @@ function NavBar() {
 
           {/* User Authentication & Menu */}
           <Box sx={{ flexGrow: 0 }}>
-            {user ? (
-              <>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User Avatar" src={user.photoURL || '/default-avatar.png'} />
+                    <Avatar alt="User Avatar" src={ user? user.photoURL || '/default-avatar.png':'#'} />
                   </IconButton>
                 </Tooltip>
                 {/*Here is menu component */}
@@ -141,32 +123,16 @@ function NavBar() {
                 >
                   {settings.map((setting) => (
                     //React recommend to set key inside the item
-                    <MenuItem key={setting} onClick={() => handleMenuClick(setting)}>
+                    <MenuItem key={setting} onClick={setting === 'Log Out' ? handleSignOut : handleCloseUserMenu}>
                       <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
                     </MenuItem>
                   ))}
                 </Menu>
-              </>
-            ) : (
-              <Box component="div" sx={{ display: 'flex', gap: '15px' }}>
-                <Button
-                  value="login"
-                  onClick={navigatePage}
-                  variant="contained"
-                  sx={{ backgroundColor: '#1976d2' }}
-                >
-                  Login
-                </Button>
-                <Button value="register" onClick={navigatePage} variant="outlined">
-                  Sign Up
-                </Button>
-              </Box>
-            )}
+        
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-
 export default NavBar;
