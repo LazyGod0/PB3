@@ -144,21 +144,30 @@ export function AuthProvider({ children }) {
   
 
   const handleSignOut = async () => {
-    await signOut(auth);
-    setUser(null);
-    setLogOutState(!logOutState);
-    setFormData((prev) =>(
-      {...prev,
-      firstName: "",
-      lastName:"",
-      roomNumber:"",
-      email: "",
-      password: "",
-      showPassword: false,
-      state:"fail"
-    }))
-    console.log("User signed out");
-  };
+    try {
+        await signOut(auth); // Ensure sign-out completes successfully
+        setUser(null); // Update the user state to null
+        if(user===null) {
+          setLogOutState((prevState) => !prevState); // Toggle the logout state
+        setFormData((prev) => ({
+            ...prev,
+            firstName: "",
+            lastName: "",
+            roomNumber: "",
+            email: "",
+            password: "",
+            showPassword: false,
+            state: "fail"
+        }));
+        console.log("User signed out");
+        console.log(user)
+        }
+        
+    } catch (error) {
+        console.error("Error during sign out:", error); // Handle any sign-out errors
+    }
+};
+
 
   return (
     <AuthContext.Provider
