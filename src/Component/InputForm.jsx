@@ -70,7 +70,7 @@ function InputForm({ title }) {
         <Button variant="contained" type="submit" className="submit" sx={{ width: "80%", borderRadius: "15px" }}>
           {title}
         </Button>
-        <Typography sx={{ fontSize: "13px" }}>
+        {/* <Typography sx={{ fontSize: "13px" }}>
           {title === "Log In" ? (
             <>
               Don't have an account?{" "}
@@ -81,12 +81,12 @@ function InputForm({ title }) {
           ) : (
             <>
               Already have an account?{" "}
-              <Link onClick={() => navigate("/")} underline="hover" sx={{ fontWeight: "bold", cursor: "pointer" }}>
+              <Link onClick={() => navigate("/login")} underline="hover" sx={{ fontWeight: "bold", cursor: "pointer" }}>
                 Log In
               </Link>
             </>
           )}
-        </Typography>
+        </Typography> */}
       </Box>
     </>
   );
