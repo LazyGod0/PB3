@@ -29,14 +29,35 @@ function InputForm({ title }) {
       <Box component="form" onSubmit={(e) => handleSubmit(e, title)} className="auth-form">
         <Typography variant="h4" className="auth-title">{title}</Typography>
         <FormControl sx={{ width: "80%", display: "flex", gap: "15px" }}>
-          <FormField
-            label="Username"
-            name="userName"
+          {title === "Sign Up" && (
+            <>
+            <FormField
+            label="First Name"
+            name="firstName"
             type="text"
-            value={formData.userName}
+            value={formData.firstName}
             onChange={handleChange}
             required
           />
+          <FormField
+            label="lastname"
+            name="lastName"
+            type="text"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+          <FormField
+            label="Room Number"
+            name="roomNumber"
+            type="text"
+            value={formData.roomNumber}
+            onChange={handleChange}
+            required
+          />
+          </>
+          )}
+          
           <FormField
             label="Email"
             name="email"

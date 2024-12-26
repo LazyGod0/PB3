@@ -18,7 +18,9 @@ export function AuthProvider({ children }) {
   const [logOutState,setLogOutState]  = useState(false);
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
-    userName: "",
+    firstName: "",
+    lastName:"",
+    roomNumber:"",
     email: "",
     password: "",
     message: "",
@@ -67,30 +69,32 @@ export function AuthProvider({ children }) {
         if (user) {
           // Optional: Fetch user data from Firestore for additional validation
           // getDocs will return querySnapshot object
-          const userDocs = await getDocs(
-            query(collection(db, "Users"), where("email", "==", formData.email))
-          );
+          // const userDocs = await getDocs(
+          //   query(collection(db, "Users"), where("email", "==", formData.email))
+          // );
           
-          //If username does not exist in firebase then sign out and throw error
-          if (userDocs.empty) {
-            handleSignOut();
-            throw new Error("User not found in Firestore");
-          }
+          // If username does not exist in firebase then sign out and throw error
+          // if (userDocs.empty) {
+          //   handleSignOut();
+          //   throw new Error("User not found in Firestore");
+          // }
           
-          // Get the document using docs property which will return array of documents
-          const userDoc = userDocs.docs[0];
-          // Use property data() to get the data of document
-          const userData = userDoc.data();
+          //  Get the document using docs property which will return array of documents
+          // const userDoc = userDocs.docs[0];
+          //  Use property data() to get the data of document
+          // const userData = userDoc.data();
           
-          // Check if username is same as in firestore if not then throw error
-          if (formData.userName !== userData.username) {
-            throw new Error("Invalid Username");
-          }
+          //  Check if username is same as in firestore if not then throw error
+          // if (formData.userName !== userData.username) {
+          //   throw new Error("Invalid Username");
+          // }
   
           setUser(user);
           setFormData((prev) => ({
             ...prev,
-            userName: "",
+            firstName: "",
+            lastName:"",
+            roomNumber:"",
             email: "",
             password: "",
             showPassword: false,
@@ -112,13 +116,16 @@ export function AuthProvider({ children }) {
   
           // Save user data in Firestore
           await setDoc(doc(db, "Users", user.uid), {
-            email: formData.email,
-            username: formData.userName,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            roomNumber: formData.roomNumber,
           });
   
           setFormData((prev) => ({
             ...prev,
-            userName: "",
+            firstName:"",
+            lastName:"",
+            roomNumber:"",
             email: "",
             password: "",
             showPassword: false,
@@ -142,7 +149,9 @@ export function AuthProvider({ children }) {
     setLogOutState(!logOutState);
     setFormData((prev) =>(
       {...prev,
-      userName: "",
+      firstName: "",
+      lastName:"",
+      roomNumber:"",
       email: "",
       password: "",
       showPassword: false,
