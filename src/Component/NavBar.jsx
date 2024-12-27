@@ -19,7 +19,7 @@ const pages = ["Dashboard", "Features", "Contact"];
 //Items of menu in profile icon
 const settings = ["Profile", "Log Out"];
 
-const path = {Dashboard:"/home",Features:"/features",Contact:"/contact"};
+const path = {Dashboard:"/home",Features:"/features",Contact:"/contact",Profile:'/profile'};
 
 function NavBar() {
   const location = useLocation();
@@ -42,15 +42,16 @@ function NavBar() {
   };
 
   // Navigate to pages or actions
-  const navigatePage = (event) => {
-    //Current target is refer to the event which happended in current
-    const value = event.currentTarget.value;
-    if (value === "Log In") {
-      navigate(`/login`);
-    } else {
-      navigate(`/${value}`);
+  const navigatePage = (path) => {
+    console.log("Navigating to:", path); // Debug log
+  
+    if (path === "Log Out") {
+      handleSignOut();
+    }  else {
+      navigate(path);
     }
   };
+
 
   // Handle menu item clicks
   // const handleMenuClick = (setting) => {
@@ -73,7 +74,7 @@ function NavBar() {
           display: "flex",
         }}
       >
-        <Toolbar disableGutters sx={{ width: "100%" }}>
+        <Toolbar disableGutters sx={{ width: "100%",height:'100%' }}>
           {/* Logo and Title */}
           <AdbIcon sx={{ display: "flex", mr: 1, color: "black" }} />
           <Typography
@@ -99,18 +100,38 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                value={page.toLowerCase()}
-                onClick={navigatePage}
-                sx={{ 
-                  display: "block", 
+                value={page}
+                onClick={()=>navigatePage(path[page])}
+                sx={location.pathname!==path[page] ?{
+                  color:'black',
+                  "&:hover": {
+                    color: "#3498db",
+                  },
+                } : {
+                  height:'100%',
+                  position: "relative",
+                  padding: "10px 20px",
+                  fontSize: "16px",
                   color: "black",
-                  transition:'all 0.3s ease',
-                '&:hover': {backgroundColor:'#ffd481',opacity:'0.5'},}}
+                  backgroundColor: "transparent",
+                  border: "none",
+                  outline: "none",
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: 0,
+                    bottom: 0,
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "black",
+                    transform: "scaleX(1)",
+                    transformOrigin: "bottom right",
+                    transition: "transform 0.3s ease-out",
+                  }
+                }}  
               >
                 <Typography component='p' 
-                sx={path[page]===location.pathname? 
-                {fontSize:'14px',textDecoration:'underline'}
-                :{fontSize:'14px',textDecoration:'none'}}>{page}</Typography>
+                >{page}</Typography>
               </Button>
             ))}
           </Box>
@@ -126,7 +147,7 @@ function NavBar() {
               </IconButton>
             </Tooltip>
             {/*Here is menu component */}
-            <Menu
+            <Menu 
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser} // Use the element inside {} to be anchor
@@ -146,8 +167,9 @@ function NavBar() {
                 //React recommend to set key inside the item
                 <MenuItem
                   key={setting}
+                  value={setting}
                   onClick={
-                    setting === "Log Out" ? handleSignOut : handleCloseUserMenu
+                    setting === "Log Out" ? handleSignOut : ()=>navigatePage(path[setting])
                   }
                 >
                   <Typography sx={{ textAlign: "center" }}>

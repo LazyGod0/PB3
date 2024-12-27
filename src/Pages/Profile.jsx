@@ -1,38 +1,35 @@
-import React from 'react'
-import { useState } from 'react';
-import { Box,IconButton,Avatar,Typography,Button } from '@mui/material'
-import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded';
-import user from '../Component/NavBar.jsx'
-import {db} from '../firebase/firebase.jsx'
-import { getDocs,doc } from 'firebase/firestore'; 
+import React from "react";
+import { Box, IconButton, Avatar, Typography, Button,styled } from "@mui/material";
+import { useAuth } from "../Auth/useAuthForm.jsx";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 function Profile() {
+  const user = useAuth();
+  const VisuallyHiddenInput = styled('input')({
+   
+  });
   return (
     <>
-      <Box component="div" 
-      sx={{
-        display:'flex',
-        flexFlow:'column',
-        gap:'20px',
-        alignItems:'center'}}>
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="User Avatar" src={user.photoURL || '/default-avatar.png'} />
-        </IconButton>
-        <Box component='div' sx={{
-        display:'flex',
-        flexFlow:'column',
-        gap:'20px',
-        alignItems:'center'}}>
-        <Typography variant ='p' component ='p' >Username:</Typography>
-        <Typography variant ='p' component ='p' >Email:{user.email}</Typography>
-        <Typography variant='p' component='p' >Description: "Not have description yet"</Typography>
-        </Box>
-        <Button variant='contained' sx={{backgroundColor:'yellow'}}>Edit Your Profile</Button>
+      <Box
+        component="div"
+        sx={{
+          display: "flex",
+          flexFlow: "column",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
       </Box>
-      
+      <IconButton sx={{ p: 0 }}>
+        <Avatar
+          alt="User Avatar"
+          src={user ? user.photoURL || "/default-avatar.png" : "#"}
+          sx={{width:'100px',height:'100px',fontSize:'3rem'}}
+        />
+      </IconButton>
       
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;
