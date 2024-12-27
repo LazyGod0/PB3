@@ -10,16 +10,16 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
+import { ImageList,ImageListItem } from "@mui/material";
 import { useNavigate,useLocation } from "react-router-dom";
 import { useAuth } from "../Auth/useAuthForm.jsx";
 
 //Name of buttons in navbar
-const pages = ["Dashboard", "Features", "Contact"];
+const pages = ["Dashboard", "Features"];
 //Items of menu in profile icon
 const settings = ["Profile", "Log Out"];
 
-const path = {Dashboard:"/home",Features:"/features",Contact:"/contact",Profile:'/profile'};
+const path = {Dashboard:"/home",Features:"/profile" ,Profile:'/profile'};
 
 function NavBar() {
   const location = useLocation();
@@ -43,8 +43,6 @@ function NavBar() {
 
   // Navigate to pages or actions
   const navigatePage = (path) => {
-    console.log("Navigating to:", path); // Debug log
-  
     if (path === "Log Out") {
       handleSignOut();
     }  else {
@@ -52,16 +50,6 @@ function NavBar() {
     }
   };
 
-
-  // Handle menu item clicks
-  // const handleMenuClick = (setting) => {
-  //   if (setting === 'Log Out') {
-  //     handleSignOut();//For log out
-  //   }
-  //   else {
-  //     handleCloseUserMenu();
-  //   }
-  // };
 
   return (
     <AppBar position="fixed" sx={{ height: "80px",width:'100%' }}>
@@ -76,38 +64,29 @@ function NavBar() {
       >
         <Toolbar disableGutters sx={{ width: "100%",height:'100%' }}>
           {/* Logo and Title */}
-          <AdbIcon sx={{ display: "flex", mr: 1, color: "black" }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "black",
-              textDecoration: "none",
-            }}
-          >
-            Review
-          </Typography>
+          <ImageList  cols={1} rowHeight={'auto'} sx={{display:'flex',justifyContent:'center'}} >
+          <ImageListItem key="Logo" sx={{width:'80px',height:'80px'}}>
+            <img src={`/Logo.png`} alt="Our Home" loading="lazy"/>
+          </ImageListItem>
+        </ImageList>
 
           {/* Page Navigation */}
-          <Box sx={{ flexGrow: 1, display: "flex"}}>
+          <Box sx={{ flexGrow: 1, display: "flex",height:'100%'}}>
             {pages.map((page) => (
               <Button
                 key={page}
                 value={page}
                 onClick={()=>navigatePage(path[page])}
                 sx={location.pathname!==path[page] ?{
+                  width:'150px',
                   color:'black',
+                  backgroundColor: "transparent",
+                  transition:'all 0.3s ease-out',
                   "&:hover": {
-                    color: "#3498db",
+                    backgroundColor: "rgb(255,212,158,0.2)",
                   },
                 } : {
+                  width:'150px',
                   height:'100%',
                   position: "relative",
                   padding: "10px 20px",
@@ -122,12 +101,16 @@ function NavBar() {
                     left: 0,
                     bottom: 0,
                     width: "100%",
-                    height: "2px",
+                    height: "5px",
                     backgroundColor: "black",
                     transform: "scaleX(1)",
                     transformOrigin: "bottom right",
-                    transition: "transform 0.3s ease-out",
+                    transition: "all 0.3s ease-out",
+                    borderRadius:'5px 5px 0px 0px'
                   }
+                  ,"&:hover": {
+                    backgroundColor: "rgb(255,212,158,0.2)",
+                  },
                 }}  
               >
                 <Typography component='p' 

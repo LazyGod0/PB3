@@ -1,10 +1,9 @@
 import { createContext, useContext, useState,useEffect } from "react";
 import { auth,db } from "../firebase/firebase";
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged,signOut} from "firebase/auth";
-import { getDocs,doc,setDoc,query,collection,where } from "firebase/firestore";
+import { doc,setDoc,getDoc } from "firebase/firestore";
 import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const AuthContext = createContext(null);
 
@@ -28,6 +27,7 @@ export function AuthProvider({ children }) {
     state: "",
   });
   
+
   //Check if user is already log in or not  at the start
   useEffect(()=>{
     const unsubscribe =onAuthStateChanged(auth , (currentuser) =>{
@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
     return () =>{
         unsubscribe();
     }
-  }, [])
+  }, [user])
 
   //Handle change in input field due to change in input field
   const handleChange = (event) => {
@@ -67,28 +67,6 @@ export function AuthProvider({ children }) {
         const user = userCredential.user;
         
         if (user) {
-          // Optional: Fetch user data from Firestore for additional validation
-          // getDocs will return querySnapshot object
-          // const userDocs = await getDocs(
-          //   query(collection(db, "Users"), where("email", "==", formData.email))
-          // );
-          
-          // If username does not exist in firebase then sign out and throw error
-          // if (userDocs.empty) {
-          //   handleSignOut();
-          //   throw new Error("User not found in Firestore");
-          // }
-          
-          //  Get the document using docs property which will return array of documents
-          // const userDoc = userDocs.docs[0];
-          //  Use property data() to get the data of document
-          // const userData = userDoc.data();
-          
-          //  Check if username is same as in firestore if not then throw error
-          // if (formData.userName !== userData.username) {
-          //   throw new Error("Invalid Username");
-          // }
-  
           setUser(user);
           setFormData((prev) => ({
             ...prev,
@@ -145,12 +123,10 @@ export function AuthProvider({ children }) {
 
   const handleSignOut = async () => {
     try {
-        await signOut(auth); // Ensure sign-out completes successfully
-        setUser(null); // Update the user state to null
-        if(user===null) {
-          setLogOutState((prevState) => !prevState); // Toggle the logout state
-        setFormData((prev) => ({
-            ...prev,
+        await signOut(auth); 
+        setUser(null); 
+        setLogOutState((prevState) => !prevState); 
+        setFormData({
             firstName: "",
             lastName: "",
             roomNumber: "",
@@ -158,15 +134,13 @@ export function AuthProvider({ children }) {
             password: "",
             showPassword: false,
             state: "fail"
-        }));
-        console.log("User signed out");
-        console.log(user)
-        }
-        
+        });
+
     } catch (error) {
-        console.error("Error during sign out:", error); // Handle any sign-out errors
+        console.error("Error during sign out:", error);
     }
 };
+
 
 
   return (
@@ -179,7 +153,7 @@ export function AuthProvider({ children }) {
         handleChange,
         handleSignOut,
         ToastContainer,
-        logOutState
+        logOutState,
       }}
     >
       {children}

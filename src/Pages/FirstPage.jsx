@@ -17,7 +17,7 @@ function FirstPage() {
       <Box component="div" className="container">
         <ImageList  cols={1} rowHeight={'auto'} sx={{display:'flex',justifyContent:'center'}} >
           <ImageListItem key="Logo" sx={{width:'200px',height:'200px'}}>
-            <img src={`/Our-Home.png`} alt="Our Home" loading="lazy"/>
+            <img src={`/Logo.png`} alt="Our Home" loading="lazy"/>
           </ImageListItem>
         </ImageList>
         <Stack sx={{textAlign:'center'}} spacing={2}>
