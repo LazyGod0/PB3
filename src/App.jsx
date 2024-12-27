@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
 import ForgetPassword from "./Pages/ForgetPassword.jsx";
+import Profile from "./Pages/Profile.jsx"
 import "./App.css";
 import Home from "./Pages/Home.jsx";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
@@ -31,6 +32,7 @@ function App() {
                   Component={ForgetPassword}
                 ></Route>
                 <Route path="/home" Component={Home}></Route>
+                <Route path="/profile" Component={Profile}></Route>
               </Routes>
           </BrowserRouter>
         </ThemeProvider>
