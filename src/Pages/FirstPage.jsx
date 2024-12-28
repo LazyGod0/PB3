@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { Link,useNavigate } from "react-router-dom";
 
-
 function FirstPage() {
   const navigate = useNavigate();
   return (

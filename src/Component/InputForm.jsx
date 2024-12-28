@@ -12,6 +12,7 @@ import { useAuth } from "../Auth/useAuthForm.jsx";
 import { useNavigate } from "react-router-dom";
 import FormField from "./FormField.jsx";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import RoomSelection from "./RoomSelection.jsx";
 
 function InputForm({ title }) {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ function InputForm({ title }) {
       navigate("/home");
     }
   }, [formData.state, navigate]);
-
+  
   return (
     <>
       <ToastContainer position="top-center" />
@@ -85,14 +86,7 @@ function InputForm({ title }) {
                   required
                 />
               </Box>
-              <FormField
-                label="Room Number"
-                name="roomNumber"
-                type="text"
-                value={formData.roomNumber}
-                onChange={handleChange}
-                required
-              />
+              <RoomSelection/>
             </>
           )}
 
