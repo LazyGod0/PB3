@@ -9,19 +9,22 @@ import {
   Checkbox,
 } from "@mui/material";
 import { useAuth } from "../Auth/useAuthForm.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import FormField from "./FormField.jsx";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import RoomSelection from "./RoomSelection.jsx";
 
 function InputForm({ title }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     formData,
     handleChange,
     toggleShowPassword,
     handleSubmit,
     ToastContainer,
+    styleMap
   } = useAuth();
 
   useEffect(() => {
@@ -36,9 +39,11 @@ function InputForm({ title }) {
     }
   }, [formData.state, navigate]);
   
+  const style = styleMap[location.pathname];
   return (
     <>
       <ToastContainer position="top-center" />
+      <Box component='div' sx={style}>
       <Box
         component="form"
         onSubmit={(e) => handleSubmit(e, title)}
@@ -164,6 +169,7 @@ function InputForm({ title }) {
             </>
           )}
         </Typography> */}
+      </Box>
       </Box>
     </>
   );

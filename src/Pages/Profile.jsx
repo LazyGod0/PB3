@@ -9,6 +9,7 @@ import { useAuth } from "../Auth/useAuthForm.jsx";
 import NavBar from "../Component/NavBar.jsx";
 import { db } from "../firebase/firebase.jsx";
 import { getDoc, doc } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
 
 const getUserData = async (user) => {
   if (user) {
@@ -20,7 +21,8 @@ const getUserData = async (user) => {
   }
 };
 function Profile() {
-  const { user } = useAuth();
+  const { user,styleMap } = useAuth();
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState({
     firstName: "",
@@ -48,9 +50,12 @@ function Profile() {
     }
   }, [user]);
 
+  const style = styleMap[location.pathname];
   return (
     <>
+
       <NavBar />
+      <Box component='div' sx={style}>
       <Box
         component="div"
         sx={{
@@ -124,6 +129,7 @@ function Profile() {
             </Typography>
           </Box>
         </Box>
+      </Box>
       </Box>
     </>
   );

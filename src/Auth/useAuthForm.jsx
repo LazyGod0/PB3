@@ -1,7 +1,7 @@
 import { createContext, useContext, useState,useEffect } from "react";
 import { auth,db } from "../firebase/firebase";
 import { signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged,signOut} from "firebase/auth";
-import { doc,setDoc,getDoc } from "firebase/firestore";
+import { doc,setDoc } from "firebase/firestore";
 import { toast,ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +14,17 @@ export const useAuth = () => {
 
 //Must be pascalcase start with upper in each word
 export function AuthProvider({ children }) {
+
+  const styleMap = {
+    "/":{backgroundColor:'#ffd49f',width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'},
+    "/home": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center',gap:'20px'},
+    "/Home": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center',gap:'20px'},
+    "/profile": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
+    "/forgetpassword": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
+    "/login": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
+    "/register": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
+  }
+
   const [logOutState,setLogOutState]  = useState(false);
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -154,6 +165,7 @@ export function AuthProvider({ children }) {
         handleSignOut,
         ToastContainer,
         logOutState,
+        styleMap
       }}
     >
       {children}

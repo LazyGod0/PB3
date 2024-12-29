@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../Component/NavBar.jsx";
 import { useAuth } from "../Auth/useAuthForm.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import MapsHomeWorkRoundedIcon from "@mui/icons-material/MapsHomeWorkRounded";
 import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
@@ -27,8 +27,9 @@ const bill = async (user) => {
 
 function Home() {
   const navigate = useNavigate();
-  const { user, logOutState } = useAuth();
-  const [loading,setLoading] = useState(false);
+  const location = useLocation();
+  const { user, logOutState,styleMap } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [billingData, setBillingData] = useState({
     homeRent: 0,
     ePerUnit: 0,
@@ -42,7 +43,7 @@ function Home() {
       navigate("/");
     } else if (user) {
       const fetchBillingData = async () => {
-        setLoading(true)
+        setLoading(true);
         const data = await bill(user);
         setLoading(false);
         const [homeRent, ePerUnit, eUnit, wPerUnit, wUnit] = data;
@@ -59,11 +60,14 @@ function Home() {
     }
   }, [logOutState, user, navigate]);
 
+  const style = styleMap[location.pathname];
   return (
     <>
+    <Box component='div' sx={style}>
       <NavBar />
       <Box
         sx={{
+          mt:'50px',
           padding: "20px",
           boxShadow: "0px 0px 10px black",
           width: "750px",
@@ -94,27 +98,25 @@ function Home() {
               boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
               borderRadius: "10px",
               padding: "10px",
-              gridRow: "span 2",
+              gridColumn: "span 2",
               color: "black",
               "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
             }}
           >
-            
-              
             <Box
               component="div"
               sx={{
                 width: "100%",
                 height: "100%",
                 display: "flex",
-                flexDirection: "column", 
-                justifyContent: "center", 
-                position: "relative", 
+                flexDirection: "column",
+                justifyContent: "center",
+                position: "relative",
               }}
             >
               <Box
                 component="div"
-                sx={{ display: "flex", alignItems: "center",width:'100%' }}
+                sx={{ display: "flex", alignItems: "center", width: "100%" }}
               >
                 <Typography
                   variant="h5"
@@ -141,7 +143,7 @@ function Home() {
                   component="h2"
                   sx={{ fontFamily: "Kanit" }}
                 >
-                  {loading? (<CircularProgress/>):billingData.homeRent} บาท
+                  {loading ? <CircularProgress /> : billingData.homeRent} บาท
                 </Typography>
               </Box>
 
@@ -178,7 +180,7 @@ function Home() {
             <Box
               component="div"
               sx={{
-                padding:'10px',
+                padding: "10px",
                 width: "100%",
                 height: "100%",
                 display: "flex",
@@ -188,7 +190,12 @@ function Home() {
             >
               <Box
                 component="div"
-                sx={{ display: "flex", alignItems: "center", width: "100%",height:'10%' }}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "10%",
+                }}
               >
                 <Typography
                   variant="h5"
@@ -206,22 +213,30 @@ function Home() {
                     textAlign: "end",
                   }}
                 >
-                  ใช้ไป {loading? (<CircularProgress/>):billingData.eUnit} หน่วย
+                  ใช้ไป {loading ? <CircularProgress /> : billingData.eUnit}{" "}
+                  หน่วย
                 </Typography>
               </Box>
               <Box
                 component="div"
-                sx={{  display: "flex",
+                sx={{
+                  display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "80%", }}
+                  height: "80%",
+                }}
               >
                 <Typography
                   variant="h4"
                   component="h4"
                   sx={{ fontFamily: "Kanit" }}
                 >
-                  {loading? (<CircularProgress/>):billingData.ePerUnit * billingData.eUnit} บาท
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    billingData.ePerUnit * billingData.eUnit
+                  )}{" "}
+                  บาท
                 </Typography>
               </Box>
               <Box component="div" sx={{ position: "absolute", bottom: 0 }}>
@@ -251,7 +266,7 @@ function Home() {
             <Box
               component="div"
               sx={{
-                padding:'10px ',
+                padding: "10px ",
                 width: "100%",
                 height: "100%",
                 display: "flex",
@@ -261,7 +276,7 @@ function Home() {
             >
               <Box
                 component="div"
-                sx={{ display: "flex", alignItems: "center",height:'10%' }}
+                sx={{ display: "flex", alignItems: "center", height: "10%" }}
               >
                 <Typography
                   variant="h5"
@@ -279,19 +294,32 @@ function Home() {
                     textAlign: "end",
                   }}
                 >
-                  ใช้ไป {loading? (<CircularProgress/>):billingData.wUnit} หน่วย
+                  ใช้ไป {loading ? <CircularProgress /> : billingData.wUnit}{" "}
+                  หน่วย
                 </Typography>
               </Box>
               <Box
                 component="div"
-                sx={{ alignContent: "center", height: "80%",display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center' }}
+                sx={{
+                  alignContent: "center",
+                  height: "80%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
                 <Typography
                   variant="h4"
                   component="h4"
                   sx={{ fontFamily: "Kanit" }}
                 >
-                  {loading? (<CircularProgress/>):billingData.wPerUnit * billingData.wUnit} บาท
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    billingData.wPerUnit * billingData.wUnit
+                  )}{" "}
+                  บาท
                 </Typography>
               </Box>
               <Box component="div" sx={{ position: "absolute", bottom: 0 }}>
@@ -309,6 +337,32 @@ function Home() {
             </Box>
           </Button>
         </Box>
+      </Box>
+      <Box
+        component="div"
+        sx={{
+          width:'750px  ',
+          height: "200px",
+          display: "grid",
+          gridTemplate: "repeat(1,1fr) / repeat(2,1fr)",
+          gap:'15px'
+        }}
+      >
+        <Button component="div" sx={{ height: "100%",padding:'5px',boxShadow:'0 0 5px black',borderRadius:'15px' }}>
+          <Box sx={{width:'100%',height:'100%',padding:'10px'}}>
+            <Typography variant="h4" component="h4" sx={{color:'black'}}>
+              ประวัติการชำระเงิน
+            </Typography>
+          </Box>
+        </Button>
+        <Button component="div" sx={{ height: "100%",padding:'5px',boxShadow:'0 0 5px black',borderRadius:'15px' }}>
+          <Box sx={{width:'100%',height:'100%',padding:'10px'}}>
+            <Typography variant="h4" component="h4" sx={{color:'black'}}>
+              รายงาน
+            </Typography>
+          </Box>
+        </Button>
+      </Box>
       </Box>
     </>
   );

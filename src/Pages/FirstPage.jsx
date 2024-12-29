@@ -7,12 +7,17 @@ import {
   Stack,
   Button,
 } from "@mui/material";
-import { Link,useNavigate } from "react-router-dom";
-
+import { Link,useNavigate,useLocation } from "react-router-dom";
+import { useAuth } from "../Auth/useAuthForm";
 function FirstPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const {styleMap} = useAuth();
+
+  const style = styleMap[location.pathname]
   return (
     <>
+    <Box component='div' sx={style}>
       <Box component="div" className="container">
         <ImageList  cols={1} rowHeight={'auto'} sx={{display:'flex',justifyContent:'center'}} >
           <ImageListItem key="Logo" sx={{width:'200px',height:'200px'}}>
@@ -37,6 +42,7 @@ function FirstPage() {
             ยังไม่มีบัญชีใช่หรือไม่? <Link to="/register">สมัครสมาชิก</Link>
           </Typography>
         </Stack>
+      </Box>
       </Box>
     </>
   );

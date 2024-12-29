@@ -10,12 +10,14 @@ import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 import FirstPage from "./Pages/FirstPage.jsx";
-// import GG from './Example/GG.jsx';
+import { useAuth } from "./Auth/useAuthForm.jsx";
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif", "Kanit"].join(","),
   },
 });
+
 
 function App() {
   return (
