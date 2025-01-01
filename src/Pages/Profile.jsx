@@ -11,16 +11,18 @@ import { db } from "../firebase/firebase.jsx";
 import { getDoc, doc } from "firebase/firestore";
 import { useLocation } from "react-router-dom";
 
-const getUserData = async (user) => {
-  if (user) {
-    const uid = user.uid;
-    const docRef = doc(db, "Users", uid);
-    const userDoc = await getDoc(docRef);
-    const userData = userDoc.data();
-    return [userData.firstName, userData.lastName, userData.roomNumber];
-  }
-};
+
 function Profile() {
+  const getUserData = async (user) => {
+    if (user) {
+      const uid = user.uid;
+      const docRef = doc(db, "Users", uid);
+      const userDoc = await getDoc(docRef);
+      const userData = userDoc.data();
+      return [userData.firstName, userData.lastName, userData.roomNumber];
+    }
+  };
+  
   const { user,styleMap } = useAuth();
   const location = useLocation();
   const [loading, setLoading] = useState(false);

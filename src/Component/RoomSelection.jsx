@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useAuth } from '../Auth/useAuthForm';
 
+// RoomSelection component is used to select the room number
 const RoomSelection = () => {
   const {formData} = useAuth();
   const [open, setOpen] = useState(false);
@@ -62,14 +63,16 @@ const RoomSelection = () => {
         fullWidth
         required
       />
+      {/* Dialog is like a flat container which will displayed when it is triggered */}
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
         <DialogTitle>เลือกห้อง</DialogTitle>
+        {/* DialogContent is the content inside Dialog */}
         <DialogContent>
           <Box container="div" sx={{display:'grid',gridTemplate:'repeat(4,1fr)/repeat(4,1fr)',gap:'15px'}}>
             {(rooms[page] || []).map((room) => (
               <Box container="div" key={room} sx={{justifySelf:'center'}} >
                 <Button
-                  variant="contained"
+                  variant="outlined"
                   onClick={() => handleRoomSelect(room)}
                 >
                   {room}
@@ -78,6 +81,7 @@ const RoomSelection = () => {
             ))}
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            {/* Pagination is the component which is container of page button allow us to navigate to the other pages */}
             <Pagination
               count={Object.keys(rooms).length}
               page={page}

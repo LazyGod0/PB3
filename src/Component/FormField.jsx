@@ -2,6 +2,7 @@ import React from "react";
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
+// It is text form but we make it more easy to use by passing the props
 function FormField({ label, name, type, value, onChange, required }) {
   return (
     <TextField

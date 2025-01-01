@@ -9,23 +9,25 @@ import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebase.jsx";
 
-const bill = async (user) => {
-  if (user) {
-    const uid = user.uid;
-    const docRef = doc(db, "Users", uid);
-    const userDoc = await getDoc(docRef);
-    const userData = userDoc.data();
-    return [
-      userData.homeRent,
-      userData.electricBathPerUnit,
-      userData.electricUnit,
-      userData.waterBathPerUnit,
-      userData.waterUnit,
-    ];
-  }
-};
+
 
 function Home() {
+  const bill = async (user) => {
+    if (user) {
+      const uid = user.uid;
+      const docRef = doc(db, "Users", uid);
+      const userDoc = await getDoc(docRef);
+      const userData = userDoc.data();
+      return [
+        userData.homeRent,
+        userData.electricBathPerUnit,
+        userData.electricUnit,
+        userData.waterBathPerUnit,
+        userData.waterUnit,
+      ];
+    }
+  };
+  
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logOutState,styleMap } = useAuth();
@@ -57,8 +59,18 @@ function Home() {
         }));
       };
       fetchBillingData();
+      
+
     }
-  }, [logOutState, user, navigate]);
+  }, [logOutState, user,navigate]);
+
+  const handleNavigate = (event) => {
+    const name = event.currentTarget.name; // ใช้ currentTarget เพื่อให้แน่ใจว่าได้ปุ่มที่ถูกต้อง
+    if (name === "hbill" || name === "ebill" || name === "wbill") {
+      navigate("/bill");
+    }
+  };
+  
 
   const style = styleMap[location.pathname];
   return (
@@ -102,6 +114,8 @@ function Home() {
               color: "black",
               "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
             }}
+            name="hbill"
+            onClick={(event) => handleNavigate(event)}
           >
             <Box
               component="div"
@@ -176,6 +190,8 @@ function Home() {
               color: "black",
               "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
             }}
+            name='ebill'
+            onClick={(event) => handleNavigate(event)}
           >
             <Box
               component="div"
@@ -262,6 +278,8 @@ function Home() {
               color: "black",
               "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
             }}
+            name='wbill'
+            onClick={(event) => handleNavigate(event)}
           >
             <Box
               component="div"

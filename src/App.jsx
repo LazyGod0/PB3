@@ -1,16 +1,16 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
 import ForgetPassword from "./Pages/ForgetPassword.jsx";
 import Profile from "./Pages/Profile.jsx"
-import "./App.css";
 import Home from "./Pages/Home.jsx";
+import BillPage from "./Pages/BillPage.jsx";
+import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 import FirstPage from "./Pages/FirstPage.jsx";
-import { useAuth } from "./Auth/useAuthForm.jsx";
 
 const theme = createTheme({
   typography: {
@@ -35,6 +35,7 @@ function App() {
                 ></Route>
                 <Route path="/home" Component={Home}></Route>
                 <Route path="/profile" Component={Profile}></Route>
+                <Route path="/bill" Component={BillPage}></Route>
               </Routes>
           </BrowserRouter>
         </ThemeProvider>
