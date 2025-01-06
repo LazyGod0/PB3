@@ -1,10 +1,15 @@
-import { createContext, useContext, useState,useEffect } from "react";
-import { auth,db } from "../firebase/firebase";
-import { signInWithEmailAndPassword,createUserWithEmailAndPassword,onAuthStateChanged,signOut} from "firebase/auth";
-import { doc,setDoc } from "firebase/firestore";
-import { toast,ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-
+import { createContext, useContext, useState, useEffect } from "react";
+import { auth, db } from "../firebase/firebase";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateProfile
+} from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //Create Context for providing the data to all components
 const AuthContext = createContext(null);
 
@@ -13,47 +18,120 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-
 //Must be pascalcase start with upper in each word
 export function AuthProvider({ children }) {
-
   //Styled object for all page using path as key
   const styleMap = {
-    "/":{backgroundColor:'#ffd49f',width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'},
-    "/home": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center',gap:'20px'},
-    "/bill":{width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center',gap:'20px'},
-    "/profile": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
-    "/forgetpassword": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
-    "/login": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
-    "/register": {width:'100%',height:'100%',display:'flex',flexFlow:'column nowrap',justifyContent:'center',alignItems:'center'},
-  }
+    "/": {
+      backgroundColor: "#ffd49f",
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    "/home": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "/bill": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "20px",
+    },
+    "/profile": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    "/forgetpassword": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    "/login": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    "/register": {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      flexFlow: "column nowrap",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  };
 
   //State for log out
-  const [logOutState,setLogOutState]  = useState(false);
+  const [logOutState, setLogOutState] = useState(false);
   //State for user
   const [user, setUser] = useState(null);
   //State for form data
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName:"",
-    roomNumber:"",
+    lastName: "",
+    roomNumber: "",
     email: "",
     password: "",
     message: "",
     showPassword: false,
     state: "",
   });
-  
+
+  const [avatar, setAvatar] = useState(null);
 
   //Check if user is already log in or not  at the start.Trigger when user in changed
-  useEffect(()=>{
-    const unsubscribe =onAuthStateChanged(auth , (currentuser) =>{
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
+      if(currentuser) {
         setUser(currentuser);
-    })
-    return () =>{
-        unsubscribe();
+        if(currentuser.photoURL) {
+          console.log(currentuser.photoURL);
+        } else {
+        await updateProfile(currentuser,{photoURL:'/Shoes.jpg'}) 
+        console.log(currentuser.photoURL);
+        }
+        setAvatar(currentuser.photoURL);
+      }
+
+    });
+    
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  const handlePictureChange = (event) => {
+    const file = event.target.files[0];
+    const url = URL.createObjectURL(file);
+    url ? setAvatar(url) : setAvatar('/Shoes.jpg')
+  }
+  const saveProfilePic = async (event,currentuser) => {
+    if(currentuser?.photoURL) {
+      await updateProfile(currentuser,{photoURL:avatar});
+      console.log(currentuser.photoURL);
+      console.log("success");
     }
-  }, [user])
+  }
 
   //Handle change in input field due to change in input field
   const handleChange = (event) => {
@@ -76,29 +154,32 @@ export function AuthProvider({ children }) {
   //Handle the submit of form due to title of form
   const handleSubmit = async (event, title) => {
     event.preventDefault();
-  
+
     if (title === "Log In") {
       try {
         // Firebase Authentication Sign In
-        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
         // Get the user from login
         const user = userCredential.user;
-        
+
         if (user) {
-          //Set user to be user who log in 
+          //Set user to be user who log in
           setUser(user);
           //Set the form data to be empty but state of log in
           setFormData((prev) => ({
             ...prev,
             firstName: "",
-            lastName:"",
-            roomNumber:"",
+            lastName: "",
+            roomNumber: "",
             email: "",
             password: "",
             showPassword: false,
             state: "success",
           }));
-          
         }
       } catch (error) {
         toast.error(error.message || "Log In failed");
@@ -106,33 +187,41 @@ export function AuthProvider({ children }) {
     } else if (title === "Sign Up") {
       try {
         // Firebase Authentication Sign Up
-        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
         const user = userCredential.user;
-  
+
         if (user) {
           // Set user to be user who sign up
           setUser(user);
-  
+
           // Save user data in Firestore
           await setDoc(doc(db, "Users", user.uid), {
             firstName: formData.firstName,
             lastName: formData.lastName,
             roomNumber: formData.roomNumber,
+            createdAt: serverTimestamp(),
+            homeRent:0,
+            electricBathPerUnit:0,
+            electricUnit:0,
+            waterBathPerUnit:0,
+            waterUnit:0,
           });
-          
+
           //Reset user data in input form to be empty
           setFormData((prev) => ({
             ...prev,
-            firstName:"",
-            lastName:"",
-            roomNumber:"",
+            firstName: "",
+            lastName: "",
+            roomNumber: "",
             email: "",
             password: "",
             showPassword: false,
             state: "success",
           }));
-
-          
         } else {
           throw new Error("Failed to create user");
         }
@@ -141,37 +230,36 @@ export function AuthProvider({ children }) {
       }
     }
   };
-  
 
   const handleSignOut = async () => {
     try {
-        await signOut(auth); 
-        setUser(null); 
-        //Set the state of log out to be true by using call back function 
-        setLogOutState((prevState) => !prevState); 
-
-        setFormData({
-            firstName: "",
-            lastName: "",
-            roomNumber: "",
-            email: "",
-            password: "",
-            showPassword: false,
-            state: "fail"
-        });
-
+      await signOut(auth);
+      setUser(null);
+      //Set the state of log out to be true by using call back function
+      setLogOutState((prevState) => !prevState);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        roomNumber: "",
+        email: "",
+        password: "",
+        showPassword: false,
+        state: "fail",
+      });
     } catch (error) {
-        console.error("Error during sign out:", error);
+      console.error("Error during sign out:", error);
     }
-};
-
-
+  };
 
   return (
     // Here is context component which use to determine what values will apply to all components using .Provider
     <AuthContext.Provider
       value={{
         user,
+        avatar,
+        setAvatar,
+        saveProfilePic,
+        handlePictureChange,
         handleSubmit,
         toggleShowPassword,
         formData,
@@ -179,7 +267,7 @@ export function AuthProvider({ children }) {
         handleSignOut,
         ToastContainer,
         logOutState,
-        styleMap
+        styleMap,
       }}
     >
       {/* children mean the child components which this component is parent component */}

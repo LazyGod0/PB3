@@ -30,7 +30,7 @@ function Home() {
   
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logOutState,styleMap } = useAuth();
+  const { user, logOutState,styleMap} = useAuth();
   const [loading, setLoading] = useState(false);
   const [billingData, setBillingData] = useState({
     homeRent: 0,
@@ -59,8 +59,6 @@ function Home() {
         }));
       };
       fetchBillingData();
-      
-
     }
   }, [logOutState, user,navigate]);
 

@@ -29,7 +29,7 @@ function NavBar() {
 
   const authForm = useAuth();
 
-  const { user, handleSignOut } = authForm;
+  const { handleSignOut,avatar } = authForm;
 
   // Open user settings menu
   const handleOpenUserMenu = (event) => {
@@ -131,7 +131,7 @@ function NavBar() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="User Avatar"
-                  src={user ? user.photoURL || "/default-avatar.png" : "#"}
+                  src={avatar? avatar:'#'}
                 />
               </IconButton>
             </Tooltip>
