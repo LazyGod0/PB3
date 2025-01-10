@@ -7,7 +7,7 @@ import {
   signOut,
   updateProfile
 } from "firebase/auth";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc,getDocs,collection } from "firebase/firestore";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 //Create Context for providing the data to all components
@@ -90,6 +90,7 @@ export function AuthProvider({ children }) {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    userName:"",
     roomNumber: "",
     email: "",
     password: "",
@@ -152,84 +153,109 @@ export function AuthProvider({ children }) {
   };
 
   //Handle the submit of form due to title of form
-  const handleSubmit = async (event, title) => {
-    event.preventDefault();
+  // const handleSubmit = async (event, title) => {
+  //   event.preventDefault();
 
-    if (title === "Log In") {
-      try {
-        // Firebase Authentication Sign In
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          formData.email,
-          formData.password
-        );
-        // Get the user from login
-        const user = userCredential.user;
+  //   if (title === "Log In") {
+  //     try {
+  //       // Firebase Authentication Sign In
+  //       const userCredential = await signInWithEmailAndPassword(
+  //         auth,
+  //         formData.email,
+  //         formData.password
+  //       );
+  //       // Get the user from login
+  //       const user = userCredential.user;
 
-        if (user) {
-          //Set user to be user who log in
-          setUser(user);
-          //Set the form data to be empty but state of log in
-          setFormData((prev) => ({
-            ...prev,
-            firstName: "",
-            lastName: "",
-            roomNumber: "",
-            email: "",
-            password: "",
-            showPassword: false,
-            state: "success",
-          }));
-        }
-      } catch (error) {
-        toast.error(error.message || "Log In failed");
+  //       if (user) {
+  //         //Set user to be user who log in
+  //         setUser(user);
+  //         //Set the form data to be empty but state of log in
+  //         setFormData((prev) => ({
+  //           ...prev,
+  //           firstName: "",
+  //           lastName: "",
+  //           roomNumber: "",
+  //           email: "",
+  //           password: "",
+  //           showPassword: false,
+  //           state: "success",
+  //         }));
+  //       }
+  //     } catch (error) {
+  //       toast.error(error.message || "Log In failed");
+  //     }
+  //   } else if (title === "Sign Up") {
+  //     try {
+  //       // Firebase Authentication Sign Up
+  //       const userCredential = await createUserWithEmailAndPassword(
+  //         auth,
+  //         formData.email,
+  //         formData.password
+  //       );
+  //       const user = userCredential.user;
+
+  //       if (user) {
+  //         // Set user to be user who sign up
+  //         setUser(user);
+
+  //         // Save user data in Firestore
+  //         await setDoc(doc(db, "Users", user.uid), {
+  //           firstName: formData.firstName,
+  //           lastName: formData.lastName,
+  //           roomNumber: formData.roomNumber,
+  //           createdAt: serverTimestamp(),
+  //           homeRent:0,
+  //           electricBathPerUnit:0,
+  //           electricUnit:0,
+  //           waterBathPerUnit:0,
+  //           waterUnit:0,
+  //         });
+
+  //         //Reset user data in input form to be empty
+  //         setFormData((prev) => ({
+  //           ...prev,
+  //           firstName: "",
+  //           lastName: "",
+  //           roomNumber: "",
+  //           email: "",
+  //           password: "",
+  //           showPassword: false,
+  //           state: "success",
+  //         }));
+  //       } else {
+  //         throw new Error("Failed to create user");
+  //       }
+  //     } catch (error) {
+  //       toast.error(error.message || "Sign Up failed");
+  //     }
+  //   }
+  // };
+
+const handleSignIn = async (event) => {
+  event.preventDefault();
+
+  try {
+    // Reference the collection
+    const collectionRef = collection(db, "Users");
+
+    // Get all documents in the collection
+    const querySnapshot = await getDocs(collectionRef);
+
+    // Iterate through each document and check credentials
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      if (
+        docData.userName === formData.userName &&
+        docData.password === formData.password
+      ) {
+        console.log("Sign In successful");
       }
-    } else if (title === "Sign Up") {
-      try {
-        // Firebase Authentication Sign Up
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          formData.email,
-          formData.password
-        );
-        const user = userCredential.user;
-
-        if (user) {
-          // Set user to be user who sign up
-          setUser(user);
-
-          // Save user data in Firestore
-          await setDoc(doc(db, "Users", user.uid), {
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            roomNumber: formData.roomNumber,
-            createdAt: serverTimestamp(),
-            homeRent:0,
-            electricBathPerUnit:0,
-            electricUnit:0,
-            waterBathPerUnit:0,
-            waterUnit:0,
-          });
-
-          //Reset user data in input form to be empty
-          setFormData((prev) => ({
-            ...prev,
-            firstName: "",
-            lastName: "",
-            roomNumber: "",
-            email: "",
-            password: "",
-            showPassword: false,
-            state: "success",
-          }));
-        } else {
-          throw new Error("Failed to create user");
-        }
-      } catch (error) {
-        toast.error(error.message || "Sign Up failed");
-      }
-    }
-  };
+    });
+  } catch (error) {
+    console.error("Error during sign-in:", error);
+  }
+};
 
   const handleSignOut = async () => {
     try {
@@ -260,11 +286,11 @@ export function AuthProvider({ children }) {
         setAvatar,
         saveProfilePic,
         handlePictureChange,
-        handleSubmit,
         toggleShowPassword,
         formData,
         handleChange,
         handleSignOut,
+        handleSignIn,
         ToastContainer,
         logOutState,
         styleMap,

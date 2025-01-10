@@ -7,7 +7,7 @@ import {
   Stack,
   Button,
 } from "@mui/material";
-import { Link,useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useAuth } from "../Auth/useAuthForm";
 function FirstPage() {
   const navigate = useNavigate();
@@ -38,9 +38,6 @@ function FirstPage() {
             </Typography>
           </Stack>
           <Button variant="contained" onClick={() => navigate('/login')}>เข้าสู่ระบบ</Button>
-          <Typography component="p" sx={{ fontFamily: "Kanit" }}>
-            ยังไม่มีบัญชีใช่หรือไม่? <Link to="/register">สมัครสมาชิก</Link>
-          </Typography>
         </Stack>
       </Box>
       </Box>
