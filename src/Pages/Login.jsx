@@ -11,9 +11,6 @@ import {
   Checkbox,
   ImageList,
   ImageListItem,
-  InputLabel,
-  Input,
-  FormHelperText,
 } from "@mui/material";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import Grid from "@mui/material/Grid2";
