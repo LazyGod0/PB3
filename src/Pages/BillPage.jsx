@@ -49,7 +49,7 @@ function BillPage(){
             ค่าใช้จ่ายรวม <br /> 999999 บาท
           </Typography>
           <Typography sx={{color:'white', fontSize:'25px'}}>
-            สถานะการชำระเงิน <br /> ยังไม่ชำระเงิน
+            สถานะการชำระเงิน <br /> ยังไม่ชำระเงิน//
           </Typography>
         </Box>
         
