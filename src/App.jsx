@@ -34,8 +34,8 @@ function App() {
         <ThemeProvider theme={theme}>
           <BrowserRouter>
             <Routes>
-              <Route path="/" Component={FirstPage}></Route>
-              <Route path="/login" Component={Login}></Route>
+              {/* <Route path="/" Component={FirstPage}></Route> */}
+              <Route path="/" Component={Login}></Route>
               <Route path="/forgetpassword" Component={ForgetPassword}></Route>
               <Route path="/home" Component={Home}></Route>
               <Route path="/profile" Component={Profile}></Route>
