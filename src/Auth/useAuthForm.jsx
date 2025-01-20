@@ -23,7 +23,6 @@ export function AuthProvider({ children }) {
   //Styled object for all page using path as key
   const styleMap = {
     "/": {
-      backgroundColor: "#ffd49f",
       width: "100%",
       height: "100%",
       display: "flex",
@@ -57,14 +56,6 @@ export function AuthProvider({ children }) {
       alignItems: "center",
     },
     "/forgetpassword": {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexFlow: "column nowrap",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    "/login": {
       width: "100%",
       height: "100%",
       display: "flex",
