@@ -7,9 +7,10 @@ import "./App.css";
 import Home from "./Pages/Home.jsx";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
-import "@fontsource/kanit"; // This method uses the `@fontsource` package.
+import "@fontsource/kanit";
 import FirstPage from "./Pages/FirstPage.jsx";
-// import GG from './Example/GG.jsx';
+import FunctionMenu from "./Pages/FunctionMenu.jsx";
+import Payme from "./Pages/Payme.jsx";
 const theme = createTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif", "Kanit"].join(","),
@@ -31,6 +32,8 @@ function App() {
                   Component={ForgetPassword}
                 ></Route>
                 <Route path="/home" Component={Home}></Route>
+                <Route path="/functioon" Component={FunctionMenu}></Route>
+                <Route path="/payme" Component={Payme}></Route>
               </Routes>
           </BrowserRouter>
         </ThemeProvider>

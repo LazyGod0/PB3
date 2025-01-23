@@ -63,15 +63,20 @@ function NavBar() {
   // };
 
   return (
-    <AppBar position="fixed" sx={{ height: "80px",width:'100%' }}>
+    <AppBar position="fixed" sx={{height: "80px",width:'100%' ,backgroundColor:'transparent' }}>
       <Container
         maxWidth="xl"
-        sx={{
-          backgroundColor: "white",
+        sx={{backgroundColor: "transparent", 
+          background: "none",
           height: "100%",
-          alignItems: "center",
+          width: '100%',
           display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "50px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.6)", 
         }}
+        
       >
         <Toolbar disableGutters sx={{ width: "100%" }}>
           {/* Logo and Title */}
@@ -80,7 +85,7 @@ function NavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#"
+            href="/homemain"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
