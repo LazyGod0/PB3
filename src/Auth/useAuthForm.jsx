@@ -88,7 +88,7 @@ export function AuthProvider({ children }) {
       navigate('/');
     }
   },[user,navigate]);
-  
+
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -119,7 +119,7 @@ export function AuthProvider({ children }) {
       toast.success("Sign In successful");
       setFormData({
         userName: "",
-        password: ""
+        password: "",
       });
     } else {
       toast.error("Invalid username or password");

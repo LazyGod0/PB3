@@ -102,7 +102,7 @@ function Home() {
                   padding: "10px",
                   gridColumn: "span 2",
                   color: "black",
-                  "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
+                  // "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
                 }}
                 name="hbill"
                 onClick={(event) => handleNavigate(event)}
@@ -183,7 +183,7 @@ function Home() {
                   borderRadius: "10px",
                   padding: "10px",
                   color: "black",
-                  "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
+                  // "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
                 }}
                 name="ebill"
                 onClick={(event) => handleNavigate(event)}
@@ -271,7 +271,7 @@ function Home() {
                   borderRadius: "10px",
                   padding: "10px",
                   color: "black",
-                  "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
+                  // "&:hover": { backgroundColor: "rgb(255,212,158,0.2)" },
                 }}
                 name="wbill"
                 onClick={(event) => handleNavigate(event)}

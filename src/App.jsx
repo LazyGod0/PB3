@@ -16,12 +16,12 @@ let theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#ce93d8",
-      dark: "#ab47bc",
+      main: "#344CB7",
+      dark: "#133E87",
     },
     secondary: {
-      main: "#da34af",
-      dark: "#982485",
+      main: "#577BC1",
+      
     },
   },
 });

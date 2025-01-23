@@ -56,7 +56,7 @@ function Login() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#ab47bc",
+                backgroundColor: theme.palette.secondary.main,
                 borderRadius: "10px 0 0 10px",
                 padding: "20px",
               }}
@@ -88,12 +88,12 @@ function Login() {
                 <TextField variant="outlined" label="Username" name="userName" value={formData.userName} onChange={handleChange} required/>
                 <TextField variant="outlined" label="Password" name="password" type={password ? "text" : "password"} value={formData.password} onChange={handleChange} required/>
                 <FormControlLabel control={<Checkbox checked={password} onChange={toggleShowPassword} />} label="Show Password" />
-                <Button variant="contained" sx={{backgroundColor: theme.palette.primary.dark,color:'white'}} type="submit" fullWidth>
+                <Button variant="contained" sx={{color:'white'}} color="secondary" type="submit" fullWidth>
                   <Typography variant="body2">Sign In</Typography>
                 </Button>
               </FormControl>
             </Box>
-            {!isMobile && <Diversity3Icon sx={{ fontSize: "5rem" }} color="secondary" />}
+            {!isMobile && <Diversity3Icon sx={{ fontSize: "5rem" }} color="primary" />}
           </Grid2>
         </Grid2>
       </Paper>
