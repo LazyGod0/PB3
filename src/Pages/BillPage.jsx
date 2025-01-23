@@ -9,7 +9,6 @@ import BedIcon from '@mui/icons-material/Bed';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { Container } from '@mui/material';
 
-
 function BillPage(){
   return(
     <Container>

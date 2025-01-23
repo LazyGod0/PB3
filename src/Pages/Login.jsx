@@ -16,12 +16,12 @@ import {
 } from "@mui/material";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import Grid2 from "@mui/material/Grid2";
-import { useLocation } from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import { useAuth } from "../Auth/useAuthForm";
 
 function Login() {
   const location = useLocation();
-  const { styleMap, formData, toggleShowPassword, handleChange, handleSignIn,password } =
+  const { styleMap, formData, toggleShowPassword, handleChange, handleSignIn,password,user } =
     useAuth();
 
   const style = styleMap[location.pathname];

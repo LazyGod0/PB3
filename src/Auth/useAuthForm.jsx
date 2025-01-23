@@ -4,7 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useMediaQuery,useTheme } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useNavigate,useLocation } from "react-router-dom";
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -64,9 +64,11 @@ export function AuthProvider({ children }) {
     // },
   };
 
+  
   // const [logOutState, setLogOutState] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
   const [password, setShowPassword] = useState(false);
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -78,11 +80,15 @@ export function AuthProvider({ children }) {
     password: "",
     state: "",
   });
-
+  
   useEffect(() => {
-    // Load user data from Firestore if needed in the future
-  }, []);
-
+    if(user && location.pathname === '/') {
+      navigate('/home');
+    } else if (user === null) {
+      navigate('/');
+    }
+  },[user,navigate]);
+  
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -96,36 +102,32 @@ export function AuthProvider({ children }) {
   };
 
   const handleSignIn = async (event) => {
-    event.preventDefault();
-    try {
-      const collectionRef = collection(db, "Users");
-      const querySnapshot = await getDocs(collectionRef);
-      let foundUser = null;
-      querySnapshot.forEach((doc) => {
-        const docData = doc.data();
-        if (
-          docData.userName === formData.userName &&
-          docData.password === formData.password
-        ) {
-          foundUser = docData;
-        }
-      });
-      if (foundUser) {
-        setUser(foundUser);
-        toast.success("Sign In successful", {
-          position: 'top-center',
-        });
-      } else {
-        toast.error("Invalid username or password", {
-          position: 'top-center',
-        });
+  event.preventDefault();
+  try {
+    const collectionRef = collection(db, "Users");
+    const querySnapshot = await getDocs(collectionRef);
+    let foundUser = null;
+    querySnapshot.forEach((doc) => {
+      const docData = doc.data();
+      if (docData.userName === formData.userName && docData.password === formData.password) {
+        foundUser = docData;
       }
-    } catch (error) {
-      toast.error("Error during sign-in", {
-        position: 'top-center',
+    });
+
+    if (foundUser) {
+      setUser(foundUser);
+      toast.success("Sign In successful");
+      setFormData({
+        userName: "",
+        password: ""
       });
+    } else {
+      toast.error("Invalid username or password");
     }
-  };
+  } catch (error) {
+    toast.error("Error during sign-in");
+  }
+};
 
   const handleSignOut = async () => {
     try {
