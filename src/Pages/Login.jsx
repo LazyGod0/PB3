@@ -21,7 +21,7 @@ import { useAuth } from "../Auth/useAuthForm";
 
 function Login() {
   const location = useLocation();
-  const { styleMap, formData, toggleShowPassword, handleChange, handleSignIn } =
+  const { styleMap, formData, toggleShowPassword, handleChange, handleSignIn,password } =
     useAuth();
 
   const style = styleMap[location.pathname];
@@ -85,9 +85,9 @@ function Login() {
             <Box component="form" onSubmit={handleSignIn} sx={{ width: "100%", maxWidth: "400px" }}>
               <FormControl fullWidth sx={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                 <Typography variant="h4" align="center" fontWeight="bold">Welcome</Typography>
-                <TextField variant="outlined" label="Username" name="userName" value={formData.userName} onChange={handleChange} />
-                <TextField variant="outlined" label="Password" name="password" type={formData.showPassword ? "text" : "password"} value={formData.password} onChange={handleChange} />
-                <FormControlLabel control={<Checkbox checked={formData.showPassword} onChange={toggleShowPassword} />} label="Show Password" />
+                <TextField variant="outlined" label="Username" name="userName" value={formData.userName} onChange={handleChange} required/>
+                <TextField variant="outlined" label="Password" name="password" type={password ? "text" : "password"} value={formData.password} onChange={handleChange} required/>
+                <FormControlLabel control={<Checkbox checked={password} onChange={toggleShowPassword} />} label="Show Password" />
                 <Button variant="contained" sx={{backgroundColor: theme.palette.primary.dark,color:'white'}} type="submit" fullWidth>
                   <Typography variant="body2">Sign In</Typography>
                 </Button>
