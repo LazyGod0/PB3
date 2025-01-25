@@ -63,7 +63,7 @@ function NavBar() {
   // };
 
   return (
-    <AppBar position="fixed" sx={{height: "80px",width:'100%' ,backgroundColor:'transparent' }}>
+    <AppBar position="fixed" sx={{height: "75px",width:'100%' ,backgroundColor:'transparent' }}>
       <Container
         maxWidth="xl"
         sx={{backgroundColor: "transparent", 

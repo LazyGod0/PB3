@@ -11,6 +11,8 @@ import "@fontsource/kanit";
 import FirstPage from "./Pages/FirstPage.jsx";
 import FunctionMenu from "./Pages/FunctionMenu.jsx";
 import Payme from "./Pages/Payme.jsx";
+import Sumramoney from "./Pages/Sumramoney.jsx";
+import Darkmode from "./Pages/Darkmode.jsx";
 const theme = createTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif", "Kanit"].join(","),
@@ -34,6 +36,8 @@ function App() {
                 <Route path="/home" Component={Home}></Route>
                 <Route path="/functioon" Component={FunctionMenu}></Route>
                 <Route path="/payme" Component={Payme}></Route>
+                <Route path="/sumra" Component={Sumramoney}></Route>
+                <Route path="/navbarv2" Component={Darkmode}></Route>
               </Routes>
           </BrowserRouter>
         </ThemeProvider>
