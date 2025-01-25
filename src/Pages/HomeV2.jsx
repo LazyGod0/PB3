@@ -11,6 +11,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontFamily: "Kanit",
   textAlign: "center",
   fontWeight: "bold",
+  color:"blue"
 }));
 
 const MainBox = styled(Box)(({ theme }) => ({
@@ -52,7 +53,7 @@ function HomeV2() {
       <MainBox>
         {/* Header */}
         <StyledTypography variant="h5">
-          ยินดีต้อนรับ คุณสมหญิง รักการเรียน
+          xxxx
         </StyledTypography>
         <StyledTypography variant="h6" sx={{ marginTop: "10px" }}>
           บิลค่าใช้จ่าย ประจำเดือน มกราคม 2077
