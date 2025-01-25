@@ -9,7 +9,7 @@ import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
-import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
+// import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 let theme = createTheme({
   typography: {
     fontFamily: ["Kanit,san-serif"].join(","),
@@ -35,11 +35,11 @@ function App() {
             <Routes>
               <Route path="/" Component={Login}></Route>
               <Route path="/forgetpassword" Component={ForgetPassword}></Route>
-              <Route element={<ProtectedRoutes />}>
+              {/* <Route element={<ProtectedRoutes />}> */}
                 <Route path="/home" Component={Home}></Route>
                 <Route path="/profile" Component={Profile}></Route>
                 <Route path="/bill" Component={BillPage}></Route>
-              </Route>
+              {/* </Route> */}
             </Routes>
           </AuthProvider>
         </BrowserRouter>

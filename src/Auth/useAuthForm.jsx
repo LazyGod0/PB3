@@ -4,7 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useMediaQuery,useTheme } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -81,13 +81,13 @@ export function AuthProvider({ children }) {
     state: "",
   });
   
-  useEffect(() => {
-    if(user && location.pathname === '/') {
-      navigate('/home');
-    } else if (user === null) {
-      navigate('/');
-    }
-  },[user,navigate]);
+  // useEffect(() => {
+  //   if(user && location.pathname === '/') {
+  //     navigate('/home');
+  //   } else if (user === null) {
+  //     navigate('/');
+  //   }
+  // },[user,navigate]);
 
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
@@ -150,7 +150,6 @@ export function AuthProvider({ children }) {
         handleSignOut,
         toast,
         ToastContainer,
-        // logOutState,
         styleMap,
         formData,
         setFormData,

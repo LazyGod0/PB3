@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./auth.css";
 import {
   Paper,
@@ -21,6 +21,7 @@ import { useAuth } from "../Auth/useAuthForm";
 
 function Login() {
   const location = useLocation();
+  
   const { styleMap, formData, toggleShowPassword, handleChange, handleSignIn,password,user } =
     useAuth();
 
@@ -28,6 +29,8 @@ function Login() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  
+  
   return (
     <Box component="div" sx={{ ...style, display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
       <Paper
