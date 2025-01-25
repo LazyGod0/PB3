@@ -55,8 +55,10 @@ function Home() {
     <div>
       <br />
       <br />
+      <br />
+      <br />
       <Box sx={{ textAlign: "left", padding: "0 20px" }}>
-        <TTypography variant="h4">
+        <TTypography variant="h5">
           ยินดีต้อนรับ ผู้เช่า {user?.email}
         </TTypography>
       </Box>
@@ -111,7 +113,7 @@ function Home() {
                 color: "080160",
                 fontWeight: "bold",
                 display: "flex",
-                alignItems: "center", 
+                alignItems: "center",
               }}
             >
               ค่าใช้จ่ายรวม
@@ -153,7 +155,7 @@ function Home() {
                 height: "100%",
                 boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
                 borderRadius: "10px",
-                padding: "60px",
+                padding: "75px",
                 color: "black",
                 backgroundColor: "white",
                 position: "relative",
@@ -161,10 +163,16 @@ function Home() {
               onClick={handleOpen}
             >
               <StyledTypography
+                variant="h5"
+                sx={{ flexGrow: 1, textAlign: "center" }}
+              >
+                xxxx:
+              </StyledTypography>
+              <StyledTypography
                 sx={{
                   position: "absolute",
                   left: "10px",
-                  top: "5px",
+                  top: "10px",
                   fontSize: "20px",
                   color: "#080160",
                   fontWeight: "bold",
@@ -180,6 +188,18 @@ function Home() {
                     marginLeft: "10px",
                   }}
                 />
+              </StyledTypography>
+              <StyledTypography
+                sx={{
+                  position: "absolute",
+                  right: "10px",
+                  bottom: "10px",
+                  fontSize: "15px",
+                  color: "#080160",
+                }}
+                onClick={handleOpen}
+              >
+                กดเพื่อรายละเอียด
               </StyledTypography>
             </Box>
 
@@ -211,12 +231,15 @@ function Home() {
                 ค่าน้ำ
                 <WaterDropIcon
                   sx={{
-                    fontSize: "3rem",
+                    fontSize: "2rem",
                     color: "#003366",
                     marginLeft: "10px",
                   }}
                 />
               </StyledTypography>
+              <br />
+              <br />
+              <br />
               <StyledTypography
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
@@ -228,7 +251,7 @@ function Home() {
                   position: "absolute",
                   right: "10px",
                   bottom: "10px",
-                  fontSize: "20px",
+                  fontSize: "15px",
                   color: "#080160",
                 }}
                 onClick={handleOpen}
@@ -237,7 +260,7 @@ function Home() {
               </StyledTypography>
             </Box>
 
-            {/* ค่าไฟ */}
+            {/* ค่าไฟas */}
             <Box
               sx={{
                 height: "100%",
@@ -271,6 +294,9 @@ function Home() {
                   }}
                 />
               </StyledTypography>
+              <br />
+              <br />
+              <br />
               <StyledTypography
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
@@ -282,9 +308,9 @@ function Home() {
                   position: "absolute",
                   right: "10px",
                   bottom: "10px",
-                  fontSize: "20px",
+                  fontSize: "15px",
                   color: "#080160",
-                  textAlign:"center",
+                  textAlign: "center",
                 }}
                 onClick={handleOpen}
               >
