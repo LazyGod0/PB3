@@ -111,7 +111,7 @@ function Home() {
                 color: "080160",
                 fontWeight: "bold",
                 display: "flex",
-                alignItems: "center", // ใช้ flex สำหรับการจัดการ icon
+                alignItems: "center", 
               }}
             >
               ค่าใช้จ่ายรวม
