@@ -68,7 +68,6 @@ export function AuthProvider({ children }) {
   // const [logOutState, setLogOutState] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const navigate = useNavigate();
   const [password, setShowPassword] = useState(false);
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({

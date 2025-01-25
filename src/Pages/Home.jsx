@@ -142,13 +142,14 @@ function Home() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+                  width: "100%",
                 }}
               >
-                <Box sx={{display:'flex',alignItems:'center'}}>
-                  <Typography variant="h5" sx={{ fontFamily: "Kanit" }}>
+                <Box sx={{ display: "flex" }}>
+                  <Typography variant="h5" sx={{ fontFamily: "Kanit",alignItems:'center',display:'flex' }}>
                     ค่าไฟเดือนนี้
+                    <FlashOnRoundedIcon sx={{ color: "#ffd49f" }} />
                   </Typography>
-                  <FlashOnRoundedIcon sx={{ color: "#ffd49f", ml: "10px" }} />
                 </Box>
                 <Typography>ใช้ไป 0 หน่วย</Typography>
                 <Typography variant="h4" sx={{ fontFamily: "Kanit" }}>
@@ -172,13 +173,16 @@ function Home() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+                  width: "100%",
                 }}
               >
-                <Box sx={{display:'flex',alignItems:'center'}}>
-                  <Typography variant="h5" sx={{ fontFamily: "Kanit" }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Typography variant="h5" sx={{ fontFamily: "Kanit",alignItems:'center',display:'flex' }}>
                     ค่าน้ำเดือนนี้
+                    <WaterDropRoundedIcon
+                      sx={{ color: "#dee9ff" }}
+                    />
                   </Typography>
-                  <WaterDropRoundedIcon sx={{ color: "#dee9ff", ml: "10px" }} />
                 </Box>
                 <Typography>ใช้ไป 0 หน่วย</Typography>
                 <Typography variant="h4" sx={{ fontFamily: "Kanit" }}>
@@ -189,45 +193,44 @@ function Home() {
           </Box>
         </Box>
         <Box
+          component="div"
+          sx={{
+            width: "750px  ",
+            height: "20%",
+            display: "grid",
+            gridTemplate: "repeat(1,1fr) / repeat(2,1fr)",
+            gap: "15px",
+          }}
+        >
+          <Box
             component="div"
             sx={{
-              width: "750px  ",
-              height: "20%",
-              display: "grid",
-              gridTemplate: "repeat(1,1fr) / repeat(2,1fr)",
-              gap: "15px",
+              height: "100%",
+              boxShadow: "0 0 5px black",
+              borderRadius: "15px",
             }}
           >
-            <Box
-              component="div"
-              sx={{
-                height: "100%",
-                boxShadow: "0 0 5px black",
-                borderRadius: "15px",
-              }}
-            >
-              <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
-                <Typography variant="h4" component="h4" sx={{ color: "black" }}>
-                  ประวัติการชำระเงิน
-                </Typography>
-              </Button>
-            </Box>
-            <Box
-              component="div"
-              sx={{
-                height: "100%",
-                padding: "5px",
-                boxShadow: "0 0 5px black",
-                borderRadius: "15px",
-              }}
-            >
-              <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
-                <Typography variant="h4" component="h4" sx={{ color: "black" }}>
-                  รายงาน
-                </Typography>
-              </Button>
-            </Box>
+            <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
+              <Typography variant="h4" component="h4" sx={{ color: "black" }}>
+                ประวัติการชำระเงิน
+              </Typography>
+            </Button>
           </Box>
+          <Box
+            component="div"
+            sx={{
+              height: "100%",
+              boxShadow: "0 0 5px black",
+              borderRadius: "15px",
+            }}
+          >
+            <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
+              <Typography variant="h4" component="h4" sx={{ color: "black" }}>
+                รายงาน
+              </Typography>
+            </Button>
+          </Box>
+        </Box>
         <PopUp open={open} handleClose={handleClose} value={value} />
       </Box>
     </>

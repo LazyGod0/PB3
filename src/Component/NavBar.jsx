@@ -2,22 +2,16 @@ import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { ImageList, ImageListItem } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../Auth/useAuthForm.jsx";
 
 //Name of buttons in navbar
-const pages = ["Dashboard", "Features"];
+const pages = [];
 //Items of menu in profile icon
-const settings = ["Profile", "Log Out"];
 
 const path = { Dashboard: "/home", Features: "/profile", Profile: "/profile" };
 
@@ -29,17 +23,17 @@ function NavBar() {
 
   const authForm = useAuth();
 
-  const { handleSignOut,avatar } = authForm;
+  const { handleSignOut, user } = useAuth();
 
   // Open user settings menu
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
-  // Close user settings menu
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // // Close user settings menu
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
 
   // Navigate to pages or actions
   const navigatePage = (path) => {
@@ -52,18 +46,29 @@ function NavBar() {
 
   return (
     <AppBar position="fixed" sx={{ height: "80px", width: "100%" }}>
-      <Container
-        maxWidth="xl"
-        sx={{
-          backgroundColor: "white",
-          height: "100%",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
-        <Toolbar disableGutters sx={{ width: "100%", height: "100%" }}>
+      <Toolbar sx={{ width: "100%", height: "100%", backgroundColor: "white" }}>
+        <Container
+          maxWidth="xl"
+          sx={{
+            width: "750px",
+            height: "100%",
+            alignItems: "center",
+            display: "flex",
+          }}
+        >
+          {/* <Box>
+          <Box component={'div'} sx={{width:'50px',height:'50px',backgroundColor:'gray',borderRadius:'50%'}}></Box>
+          </Box> */}
+          <Box component={'div'} sx={{height:'100%',display:'flex',alignItems:'center',gap:'20px'}}> 
+            <Avatar
+              alt="User Avatar"
+              src={"iconprofile.webp"}
+              sx={{ width: "50px", height: "50px" }}
+            />
+            <Typography sx={{color:'black',fontSize:'25px'}}>สมชาย สายฟ้า</Typography>
+          </Box>
           {/* Logo and Title */}
-          <ImageList
+          {/* <ImageList
             cols={1}
             rowHeight={"auto"}
             sx={{ display: "flex", justifyContent: "center" }}
@@ -71,7 +76,7 @@ function NavBar() {
             <ImageListItem key="Logo" sx={{ width: "80px", height: "80px" }}>
               <img src={`/Logo.png`} alt="Our Home" loading="lazy" />
             </ImageListItem>
-          </ImageList>
+          </ImageList> */}
 
           {/* Page Navigation */}
           <Box sx={{ flexGrow: 1, display: "flex", height: "100%" }}>
@@ -126,16 +131,13 @@ function NavBar() {
           </Box>
 
           {/* User Authentication & Menu */}
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="User Avatar"
-                  src={avatar? avatar:'#'}
-                />
+                <Avatar alt="User Avatar" src={avatar ? avatar : "#"} />
               </IconButton>
             </Tooltip>
-            {/*Here is menu component */}
+            
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -169,9 +171,9 @@ function NavBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
+          </Box> */}
+        </Container>
+      </Toolbar>
     </AppBar>
   );
 }
