@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
-import Register from "./Pages/Register.jsx";
 import ForgetPassword from "./Pages/ForgetPassword.jsx";
 import FirstPage from "./Pages/FirstPage.jsx";
 import Sumramoney from "./Pages/Sumramoney.jsx";
@@ -9,6 +8,8 @@ import HomeV2 from "./Pages/HomeV2.jsx";
 import NavBar from "./Component/NavBar.jsx";
 import Navv from "./Component/Navv.jsx";
 import Home from "./Pages/Home.jsx";
+import BillPage from "./Pages/BillPage.jsx";
+import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 

@@ -77,7 +77,6 @@ function Home() {
 
   return (
     <div>
-
       <NavBar/>
       <Box sx={{ flexDirection: "column", padding: "0 10px" }}>
         <br />
