@@ -17,64 +17,88 @@ function Sumramoney() {
       <Box
         component="div"
         sx={{
-          width: "750px",
-          height: "20%",
-          display: "grid",
-          gridTemplate: "repeat(1, 1fr) / repeat(2, 1fr)",
-          gap: "15px",
+          width: "100%",
+          height: "0px", 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          backgroundColor: "#f0f0f0",
         }}
       >
         <Box
           component="div"
           sx={{
-            height: "100%",
-            boxShadow: "0 0 5px black",
-            borderRadius: "15px",
+            width: "750px",
+            height: "50%",
+            display: "grid",
+            gridTemplate: "repeat(1, 1fr) / repeat(2, 1fr)",
+            gap: "15px",
           }}
         >
-          <Button
+          <Box
+            component="div"
             sx={{
-              width: "100%",
-              height: "100%",
-              padding: "10px",
-              backgroundColor: "#080160",
+              height: "125%",
+              boxShadow: "0 0 5px black",
+              borderRadius: "15px",
             }}
           >
-            <WhiteTypography
-              variant="h5"
-              component="h5"
-              sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+            <Button
+              sx={{
+                width: "100%",
+                height: "100%",
+                padding: "10px",
+                backgroundColor: "#080160",
+              }}
             >
-              ประวัติการชำระเงิน
-              <SearchIcon sx={{ fontSize: "2rem", color: "white" ,ml: "20px" }} />
-            </WhiteTypography>
-          </Button>
-        </Box>
-        <Box
-          component="div"
-          sx={{
-            height: "100%",
-            boxShadow: "0 0 5px black",
-            borderRadius: "15px",
-          }}
-        >
-          <Button
+              <WhiteTypography
+                variant="h5"
+                component="h5"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                ประวัติการชำระเงิน
+                <SearchIcon
+                  sx={{ fontSize: "2rem", color: "white", ml: "20px" }}
+                />
+              </WhiteTypography>
+            </Button>
+          </Box>
+          <Box
+            component="div"
             sx={{
-              width: "100%",
-              height: "100%",
-              padding: "8px",
-              backgroundColor: "#080160",
+              height: "125%",
+              boxShadow: "0 0 5px black",
+              borderRadius: "15px",
             }}
           >
-            <WhiteTypography
-              variant="h5"
-              component="h5"
-              sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+            <Button
+              sx={{
+                width: "100%",
+                height: "100%",
+                padding: "8px",
+                backgroundColor: "#080160",
+              }}
             >
-              ชำระเงิน
-              <CreditCardIcon sx={{ fontSize: "2rem", color: "white",ml: "20px" }} />
-            </WhiteTypography>
-          </Button>
+              <WhiteTypography
+                variant="h5"
+                component="h5"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                ชำระเงิน
+                <CreditCardIcon
+                  sx={{ fontSize: "2rem", color: "white", ml: "20px" }}
+                />
+              </WhiteTypography>
+            </Button>
+          </Box>
         </Box>
       </Box>
     </>
