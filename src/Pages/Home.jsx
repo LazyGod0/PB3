@@ -52,11 +52,11 @@ function Home() {
     if(user) {
       setPayment((prev) => ({
         ...prev,
-        ePerUnit:user.electricBathPerUnit,
-        eUnit:user.electricUnit,
-        homeRent:user.homeRent,
-        wPerUnit:user.waterBathPerUnit,
-        wUnit:user.waterUnit
+        ePerUnit:parseFloat(user.electricBathPerUnit) || 0,
+        eUnit:parseFloat(user.electricUnit) || 0,
+        homeRent:parseFloat(user.homeRent) || 0,
+        wPerUnit:parseFloat(user.waterBathPerUnit) || 0,
+        wUnit:parseFloat(user.waterUnit)  || 0
       }))
     }
   },[user])
@@ -173,7 +173,7 @@ function Home() {
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
               >
-                {(parseFloat(paymentData.homeRent)+parseFloat(paymentData.ePerUnit*paymentData.eUnit)+parseFloat(paymentData.wPerUnit*paymentData.wUnit)).toFixed(2)}
+                {(paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
               </StyledTypography>
               <StyledTypography
                 sx={{
@@ -215,7 +215,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {paymentData.homeRent}
+                  {paymentData.homeRent.toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -294,7 +294,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {(paymentData.wPerUnit*paymentData.wPerUnit).toFixed(2)}
+                  {(paymentData.wUnit*paymentData.wPerUnit).toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -352,7 +352,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {(paymentData.ePerUnit*paymentData.eUnit).toFixed(2)}
+                  {(paymentData.ePerUnit*paymentData.eUnit).toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
