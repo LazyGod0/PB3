@@ -1,0 +1,57 @@
+import React from "react";
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, AppBar, Toolbar, Box } from "@mui/material";
+
+const paymentData = [
+  { date: "18 ม.ค. 2019", type: "ค่าสมัครสมาชิก", cost: "9999.00", status: "สำเร็จ", note: "-" },
+  { date: "18 ม.ค. 2019", type: "ค่าสมัครสมาชิก", cost: "6999.00", status: "สำเร็จ", note: "-" },
+  { date: "18 ม.ค. 2019", type: "ค่าสมัครสมาชิก", cost: "5999.00", status: "สำเร็จ", note: "-" },
+  { date: "18 ม.ค. 2019", type: "ค่าสมัครสมาชิก", cost: "8999.00", status: "สำเร็จ", note: "-" },
+];
+
+const PaymentHistory = () => {
+  return (
+    <Box sx={{ bgcolor: "#080160", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", p: 2 }}>
+      {/* Header */}
+      <AppBar position="static" sx={{ bgcolor: "#ffffff", color: "black", width: "100%" }}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            OUR-HOME
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      {/* Content */}
+      <Container maxWidth="md" sx={{ bgcolor: "rgba(150,200,210,1)", p: 3, borderRadius: 2, mt: 3, boxShadow: 3 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          ประวัติการชำระเงิน
+        </Typography>
+        <TableContainer component={Paper} sx={{ boxShadow: 3 }}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ bgcolor: "#080160" }}>
+                <TableCell align="center" sx={{ color: "white" }}>วันที่ชำระ</TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>ประเภท</TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>ค่าใช้จ่าย</TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>สถานะ</TableCell>
+                <TableCell align="center" sx={{ color: "white" }}>หมายเหตุ</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paymentData.map((row, index) => (
+                <TableRow key={index} sx={{ bgcolor: index % 2 === 0 ? "rgba(150,200,210,0.2)" : "white" }}>
+                  <TableCell align="center">{row.date}</TableCell>
+                  <TableCell align="center">{row.type}</TableCell>
+                  <TableCell align="center">{row.cost}</TableCell>
+                  <TableCell align="center">{row.status}</TableCell>
+                  <TableCell align="center">{row.note}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </Box>
+  );
+};
+
+export default PaymentHistory;

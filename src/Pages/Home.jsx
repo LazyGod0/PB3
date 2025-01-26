@@ -15,7 +15,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontFamily: "Kanit",
   textAlign: "center",
   fontWeight: "bold",
-  color: "#080160",
+  color: "  ",
 }));
 
 const MoveTypography = styled(Typography)(({ theme }) => ({
@@ -44,7 +44,8 @@ function Home() {
     eUnit:0,
     homeRent:0,
     wPerUnit:0,
-    wUnit:0
+    wUnit:0,
+    outstandingBalance:0
   });
 
   useEffect(() => {
@@ -56,7 +57,8 @@ function Home() {
         eUnit:parseFloat(user.electricUnit) || 0,
         homeRent:parseFloat(user.homeRent) || 0,
         wPerUnit:parseFloat(user.waterBathPerUnit) || 0,
-        wUnit:parseFloat(user.waterUnit)  || 0
+        wUnit:parseFloat(user.waterUnit)  || 0,
+        outstandingBalance:parseFloat(user.outstandingBalance) || 0
       }))
     }
   },[user])
@@ -97,7 +99,7 @@ function Home() {
             ยินดีต้อนรับ ผู้เช่า {user?.email ? user.email : "สมชาย สายฟ้า"}
           </TTypography>
         </Box>
-        <Box sx={{ flexDirection: "column", padding: "0 20px" }}>
+        <Box sx={{padding:"0 20px"}}>
           <NavBar />
           <br />
           <Box
@@ -173,7 +175,7 @@ function Home() {
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
               >
-                {(paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
+                {(paymentData.outstandingBalance+paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
               </StyledTypography>
               <StyledTypography
                 sx={{

@@ -8,8 +8,11 @@ import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
+import NavBar from "./Component/NavBar.jsx";
+import { useLocation } from "react-router-dom";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
+import PaymentHistory from "./Pages/PaymentHistory.jsx";
 let theme = createTheme({
   typography: {
     fontFamily: ["Kanit,san-serif"].join(","),
@@ -40,6 +43,7 @@ function App() {
                 <Route path="/profile" Component={Profile}></Route>
                 <Route path="/bill" Component={BillPage}></Route>
               {/* </Route> */}
+              <Route path="/his" Component={PaymentHistory}></Route>
             </Routes>
           </AuthProvider>
         </BrowserRouter>
