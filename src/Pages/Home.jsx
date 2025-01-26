@@ -80,9 +80,7 @@ function Home() {
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
+      <NavBar />
       <br />
       <br />
 
@@ -100,7 +98,7 @@ function Home() {
           </TTypography>
         </Box>
         <Box sx={{padding:"0 20px"}}>
-          <NavBar />
+          
           <br />
           <Box
             sx={{
