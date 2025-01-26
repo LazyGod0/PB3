@@ -22,9 +22,8 @@ const theme = createTheme({
 
 const AppRoutes = () => {
   const element = useRoutes([
-    { path: "", element: <FirstPage /> },
-    { path: "/register", element: <Register /> },
-    { path: "/login", element: <Login /> },
+    // { path: "", element: <FirstPage /> },
+    { path: "/", element: <Login /> },
     { path: "/forgetpassword", element: <ForgetPassword /> },
     { path: "/home", element: <Home /> },
     { path: "/sumra", element: <Sumramoney /> },
