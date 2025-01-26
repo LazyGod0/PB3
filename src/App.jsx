@@ -12,7 +12,7 @@ import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
-
+import PaymentHistory from "./Pages/PaymentHistory.jsx";
 
 const theme = createTheme({
     typography: {
@@ -31,6 +31,8 @@ const AppRoutes = () => {
     { path: "/navbar", element: <NavBar /> },
     { path: "/homev2", element: <HomeV2 /> },
     { path: "/navv", element: <Navv /> },
+    { path: "/his", element: <PaymentHistory /> },
+    { path: "/bill", element: <BillPage /> },
   ]);
   return element;
 };
