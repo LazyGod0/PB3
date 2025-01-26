@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Grid2, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import NavBar from "../Component/NavBar.jsx";
@@ -11,26 +11,28 @@ import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import HomeIcon from "@mui/icons-material/Home";
 import BoltIcon from "@mui/icons-material/Bolt";
 import FunctionMenu from "./FunctionMenu.jsx";
+import SearchIcon from "@mui/icons-material/Search";
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: "Kanit",
+  fontFamily: "IBM Plex Sans Thai, sans-serif",
   textAlign: "center",
   fontWeight: "bold",
   color: "#080160",
 }));
 
 const MoveTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: "Kanit",
+  fontFamily: "IBM Plex Sans Thai, sans-serif",
   textAlign: "center",
   color: "white",
   fontWeight: "bold",
 }));
 
 const TTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: "Kanit",
+  fontFamily: "IBM Plex Sans Thai, sans-serif",
   textAlign: "left",
-  color: "#080160",
-  fontWeight: "bold",
+  color: "#16325B",
+  fontWeight: 700,
 }));
 
 function Home() {
@@ -76,13 +78,284 @@ function Home() {
   }, [logOutState, user, navigate]);
 
   return (
-    <div>
+    <Box>
       <NavBar/>
-      <Box sx={{ flexDirection: "column", padding: "0 10px" }}>
-        <br />
+    <Container>
+      <Grid2 size={12}>
+        <Grid2 size={12}>
+          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',ml:4,py:3}}>
+                ยินดีต้อนรับ ผู้เช่า {user?.email}
+            </Typography>
+        </Grid2>
+        <Grid2 size={12}>
+            <Box sx={{ width:'100%' , backgroundColor:'#78B7D0' , mx:4,p:1,borderRadius:5,px:15,py:5 }}>
+                <Typography variant="h5" sx={{ color:'white',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',pb:3, textAlign:'center'}}>
+                  บิลค่าใช้จ่าย ประจำเดือน มกราคม 2077
+                </Typography>
+                {/* ค่าใช้จ่ายรวม */}
+                <Button
+                    component="div"
+                    sx={{
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      p:10,
+                      boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                      marginBottom: "20px",
+                      position: "relative",
+                      height: "100%",
+                      boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                      borderRadius: "10px",
+                      color: "black",
+                      backgroundColor: "white",
+                      width: "100%",
+                      backgroundColor: "#e7f5ff",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    {/* ค่าใช้จ่ายรวม text and icon */}
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        left: "10px",
+                        top: "10px",
+                        fontSize: "20px",
+                        color: "080160",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      ค่าใช้จ่ายรวม
+                      <AttachMoneyRoundedIcon
+                        sx={{ color: "#080160", fontSize: "2rem", marginLeft: "10px" }}
+                      />
+                    </StyledTypography>
+                    <StyledTypography
+                      variant="h5"
+                      sx={{ flexGrow: 1, textAlign: "center" }}
+                    >
+                      {(paymentData.outstandingBalance+paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
+                    </StyledTypography>
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        right: "10px",
+                        bottom: "10px",
+                        fontSize: "20px",
+                        color: "#080160",
+                      }}
+                    >
+                      กดเพื่อรายละเอียด
+                    </StyledTypography>
+                </Button>
+                {/* รายการค่าใช้จ่าย */}
+                <Box
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, 1fr)",
+                    gap: "15px",
+                  }}
+                >
+                  {/* ค่าเช่าห้อง */}
+                  <Button
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                      borderRadius: "10px",
+                      padding: "75px",
+                      color: "black",
+                      backgroundColor: "white",
+                      position: "relative",
+                      backgroundColor: "#e7f5ff",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    <StyledTypography
+                      variant="h5"
+                      sx={{ flexGrow: 1, textAlign: "center" }}
+                    >
+                      {paymentData.homeRent.toLocaleString()}
+                    </StyledTypography>
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        left: "10px",
+                        top: "10px",
+                        fontSize: "20px",
+                        color: "#080160",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      ค่าเช่าห้อง
+                      <HomeIcon
+                        sx={{
+                          fontSize: "2rem",
+                          color: "#003366",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    </StyledTypography>
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        right: "10px",
+                        bottom: "10px",
+                        fontSize: "15px",
+                        color: "#080160",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      กดเพื่อรายละเอียด
+                    </StyledTypography>
+                  </Button>
+
+                  {/* ค่าน้ำ */}
+                  <Button
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                      borderRadius: "10px",
+                      padding: "10px",
+                      color: "black",
+                      backgroundColor: "white",
+                      position: "relative",
+                      backgroundColor: "#e7f5ff",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        left: "10px",
+                        top: "10px",
+                        fontSize: "20px",
+                        color: "#080160",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      ค่าน้ำ
+                      <WaterDropIcon
+                        sx={{
+                          fontSize: "2rem",
+                          color: "#003366",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    </StyledTypography>
+                    <br />
+                    <br />
+                    <br />
+                    <StyledTypography
+                      variant="h5"
+                      sx={{ flexGrow: 1, textAlign: "center" }}
+                    >
+                      {(paymentData.wUnit*paymentData.wPerUnit).toLocaleString()}
+                    </StyledTypography>
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        right: "10px",
+                        bottom: "10px",
+                        fontSize: "15px",
+                        color: "#080160",
+                      }}
+                      onClick={handleOpen}
+                    >
+                      กดเพื่อรายละเอียด
+                    </StyledTypography>
+                  </Button>
+
+                  {/* ค่าไฟas */}
+                  <Button
+                    component="div"
+                    sx={{
+                      height: "100%",
+                      boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                      borderRadius: "10px",
+                      padding: "10px",
+                      color: "black",
+                      backgroundColor: "white",
+                      position: "relative",
+                      backgroundColor: "#e7f5ff",
+                    }}
+                    onClick={handleOpen}
+                  >
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        left: "10px",
+                        top: "10px",
+                        fontSize: "20px",
+                        color: "#080160",
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      ค่าไฟ
+                      <BoltIcon
+                        sx={{
+                          fontSize: "2rem",
+                          color: "#003366",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    </StyledTypography>
+                    <br />
+                    <br />
+                    <br />
+                    <StyledTypography
+                      variant="h5"
+                      sx={{ flexGrow: 1, textAlign: "center" }}
+                    >
+                      {(paymentData.ePerUnit*paymentData.eUnit).toLocaleString()}
+                    </StyledTypography>
+                    <StyledTypography
+                      sx={{
+                        position: "absolute",
+                        right: "10px",
+                        bottom: "10px",
+                        fontSize: "15px",
+                        color: "#080160",
+                        textAlign: "center",
+                      }}
+                    >
+                      กดเพื่อรายละเอียด
+                    </StyledTypography>
+                  </Button>
+                </Box> 
+            </Box>
+        </Grid2>
+        <Grid2 size={12}>
+        <Box sx={{display:'flex',justifyContent:'center' , my:5}}>
+                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1 ,display:'flex' ,flexDirection:'column' ,alignItems:'center'}}>
+                  <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white'}} >
+                    ประวัติการชำระเงิน
+                  </Typography>
+                  <SearchIcon sx={{color:'white',fontSize:30}}/>
+                </Box>
+                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1,display:'flex' ,flexDirection:'column' ,alignItems:'center'}}>
+                  <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white'}} >
+                    ชำระเงิน
+                  </Typography>
+                  <CreditCardIcon sx={{color:'white',fontSize:30}}/>
+                </Box>
+            </Box>
+        </Grid2>
+
+
+
+
+
         <Box
           sx={{
-            width: "80%",
+            width: "100%",
             height: "0px",
             display: "flex",
             justifyContent: "center",
@@ -90,9 +363,9 @@ function Home() {
             backgroundColor: "#f0f0f0",
           }}
         >
-          <TTypography variant="h5">
+          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700'}}>
             ยินดีต้อนรับ ผู้เช่า {user?.email}
-          </TTypography>
+          </Typography>
         </Box>
         <br />
         <br />
@@ -360,8 +633,9 @@ function Home() {
         <br />
         <Sumramoney />
         <PopUp value="elec" handleClose={handleClose} open={open} />
-      </Box>
-    </div>
+      </Grid2>
+    </Container>
+    </Box>
   );
 }
 

@@ -13,12 +13,14 @@ import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
+import "@fontsource/roboto"; 
+
 
 const theme = createTheme({
-    typography: {
-      fontFamily: ["sans-serif"].join(","),
-    },
-  });
+  typography: {
+    fontFamily: "Roboto, sans-serif",
+  },
+});
 
 const AppRoutes = () => {
   const element = useRoutes([

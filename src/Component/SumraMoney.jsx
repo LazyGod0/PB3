@@ -37,7 +37,7 @@ function SumraMoney() {
               width: "100%",
               height: "100%",
               padding: "10px",
-              backgroundColor: "#080160",
+              backgroundColor: "#16325B",
             }}
           >
             <WhiteTypography
@@ -63,7 +63,7 @@ function SumraMoney() {
               width: "100%",
               height: "100%",
               padding: "8px",
-              backgroundColor: "#080160",
+              backgroundColor: "#16325B",
             }}
           >
             <WhiteTypography
