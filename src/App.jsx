@@ -10,6 +10,7 @@ import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
+import PaymentHistory from "./Pages/PaymentHistory.jsx";
 let theme = createTheme({
   typography: {
     fontFamily: ["Kanit,san-serif"].join(","),
@@ -39,6 +40,7 @@ function App() {
                 <Route path="/home" Component={Home}></Route>
                 <Route path="/profile" Component={Profile}></Route>
                 <Route path="/bill" Component={BillPage}></Route>
+                <Route path="his" Component={PaymentHistory}></Route>
               {/* </Route> */}
             </Routes>
           </AuthProvider>
