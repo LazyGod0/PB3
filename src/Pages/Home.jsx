@@ -1,239 +1,354 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import NavBar from "../Component/NavBar.jsx";
-import { useAuth } from "../Auth/useAuthForm.jsx";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Box, Typography, Button } from "@mui/material";
-import MapsHomeWorkRoundedIcon from "@mui/icons-material/MapsHomeWorkRounded";
-import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
-import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
 import PopUp from "../Component/PopUp.jsx";
+import SumraMoney from "../Component/Sumramoney.jsx";
+import { useAuth } from "../Auth/useAuthForm.jsx";
+import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import HomeIcon from "@mui/icons-material/Home";
+import WaterIcon from "@mui/icons-material/Water";
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: "Kanit",
+  textAlign: "center",
+  fontWeight: "bold",
+  color: "#080160",
+}));
+
+const MoveTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: "Kanit",
+  textAlign: "center",
+  color: "white",
+  fontWeight: "bold",
+}));
+
+const TTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: "Kanit",
+  textAlign: "left",
+  color: "#080160",
+  fontWeight: "bold",
+  width: "750px",
+}));
+
 
 function Home() {
-  const location = useLocation();
-  const { styleMap } = useAuth();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const navigate = useNavigate();
+  const { user, logOutState } = useAuth();
+  const [open, setPopUp] = useState(false);
 
-  const handleClickOpen = (e) => {
-    const selectedValue = e.currentTarget.getAttribute("value");
-    setValue(selectedValue);
-    setOpen(true);
+  const handleOpen = () => {
+    setPopUp(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-    setValue("");
+    setPopUp(false);
   };
 
-  const style = styleMap[location.pathname];
+  useEffect(() => {
+    if (logOutState && !user) {
+      navigate("/");
+    }
+  }, [logOutState, user, navigate]);
+
   return (
-    <>
-      <Box component="div" sx={style}>
-        <NavBar />
-        <Box
-          sx={{
-            mt: "100px",
-            padding: "20px",
-            boxShadow: "0px 0px 10px black",
-            width: "750px",
-            height: "auto",
-            borderRadius: "20px",
-          }}
-        >
-          <Typography
-            variant="h4"
-            gutterBottom
-            component="div"
-            sx={{ fontFamily: "Kanit" }}
-          >
-            ค่าใช้จ่าย
-          </Typography>
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexFlow: "column nowrap",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={{ textAlign: "left", padding: "0 20px" }}>
+          <TTypography variant="h5">
+            ยินดีต้อนรับ ผู้เช่า {user?.email ? user.email : "สมชาย สายฟ้า"}
+          </TTypography>
+        </Box>
+        <Box sx={{ flexDirection: "column", padding: "0 20px" }}>
+          <NavBar />
+          <br />
           <Box
             sx={{
+              // padding: "20px",
+              // boxShadow: "0px 0px 10px black",
               width: "100%",
-              height: "30%",
-              display: "grid",
-              gridTemplate: "auto/ repeat(2,1fr)",
-              alignItems: "center",
-              gap: "25px",
+              maxWidth: "750px",
+              // borderRadius: "20px",
+              backgroundColor: "#ADD8E6",
+              margin: "0 auto",
+              height: "100%",
+              boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+              borderRadius: "10px",
+              padding: "10px",
+              color: "black",
+              '.MuiButton-contained':{
+                '&:hover' : {
+                  backgroundColor:'rgba(150,200,210,1)'
+                }
+              }
             }}
           >
+            <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
+              <MoveTypography variant="h5">
+                บิลค่าใช้จ่าย ประจำเดือน มกราคม 2077
+              </MoveTypography>
+            </Box>
+
+            {/* ค่าใช้จ่ายรวม */}
             <Button
+            variant="contained"
               sx={{
-                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
                 boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
-                borderRadius: "10px",
+                marginBottom: "20px",
+                position: "relative",
+                width: "100%",
+                height: "150px",
                 padding: "10px",
-                gridColumn: "span 2",
+                borderRadius: "10px",
                 color: "black",
+                backgroundColor: "white",
               }}
-              value="home"
-              onClick={handleClickOpen}
+              onClick={handleOpen}
             >
-              <Box
-                component="div"
+              {/* ค่าใช้จ่ายรวม text and icon */}
+              <StyledTypography
                 sx={{
-                  width: "100%",
-                  height: "100%",
+                  position: "absolute",
+                  left: "10px",
+                  top: "10px",
+                  fontSize: "20px",
+                  color: "080160",
+                  fontWeight: "bold",
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                ค่าใช้จ่ายรวม
+                <AttachMoneyRoundedIcon
+                  sx={{
+                    color: "#080160",
+                    fontSize: "2rem",
+                    marginLeft: "10px",
+                  }}
+                />
+              </StyledTypography>
+              <StyledTypography
+                variant="h5"
+                sx={{ flexGrow: 1, textAlign: "center" }}
+              >
+                xxxx:
+              </StyledTypography>
+              <StyledTypography
+                sx={{
+                  position: "absolute",
+                  right: "10px",
+                  bottom: "10px",
+                  fontSize: "20px",
+                  color: "#080160",
+                }}
+              >
+                กดเพื่อรายละเอียด
+              </StyledTypography>
+            </Button>
+
+            {/* รายการค่าใช้จ่าย */}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "15px",
+              }}
+            >
+              {/* ค่าเช่าห้อง */}
+              <Button
+              variant="contained"
+                sx={{
+                  height: "100%",
+                  boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                  borderRadius: "10px",
+                  padding: "75px",
+                  color: "black",
+                  backgroundColor: "white",
                   position: "relative",
                 }}
+                onClick={handleOpen}
               >
-                <Box
-                  component="div"
-                  sx={{ display: "flex", alignItems: "center", width: "100%" }}
+                <StyledTypography
+                  variant="h5"
+                  sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  <Typography
-                    variant="h5"
-                    component="h5"
-                    sx={{ fontFamily: "Kanit" }}
-                  >
-                    ค่าเช่าบ้านเดือนนี้
-                  </Typography>
-                  <MapsHomeWorkRoundedIcon
-                    sx={{ color: "#ffd481", ml: "10px" }}
-                  />
-                </Box>
-                <Box
+                  xxxx:
+                </StyledTypography>
+                <StyledTypography
                   sx={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "10px",
+                    fontSize: "20px",
+                    color: "#080160",
+                    fontWeight: "bold",
                     display: "flex",
-                    justifyContent: "center",
                     alignItems: "center",
-                    height: "80%",
                   }}
                 >
-                  <Typography
-                    variant="h2"
-                    component="h2"
-                    sx={{ fontFamily: "Kanit" }}
-                  >
-                    0 บาท
-                  </Typography>
-                </Box>
-                <Box sx={{ position: "absolute", bottom: 0 }}>
-                  <Typography
-                    component="p"
+                  ค่าเช่าห้อง
+                  <HomeIcon
                     sx={{
-                      fontFamily: "Kanit",
-                      fontSize: "14px",
-                      color: "rgb(0,0,0,0.5)",
+                      fontSize: "2rem",
+                      color: "#003366",
+                      marginLeft: "10px",
                     }}
-                  >
-                    คลิกเพื่อดูรายละเอียด
-                  </Typography>
-                </Box>
-              </Box>
-            </Button>
-            <Button
-              sx={{
-                height: "100%",
-                boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
-                borderRadius: "10px",
-                padding: "10px",
-                color: "black",
-              }}
-              value="elec"
-              onClick={handleClickOpen}
-            >
-              <Box
+                  />
+                </StyledTypography>
+                <StyledTypography
+                  sx={{
+                    position: "absolute",
+                    right: "10px",
+                    bottom: "10px",
+                    fontSize: "15px",
+                    color: "#080160",
+                  }}
+                >
+                  กดเพื่อรายละเอียด
+                </StyledTypography>
+              </Button>
+
+              {/* ค่าน้ำ */}
+              <Button
+              variant="contained"
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  width: "100%",
+                  height: "100%",
+                  boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  color: "black",
+                  backgroundColor: "white",
+                  position: "relative",
                 }}
+                onClick={handleOpen}
               >
-                <Box sx={{ display: "flex" }}>
-                  <Typography variant="h5" sx={{ fontFamily: "Kanit",alignItems:'center',display:'flex' }}>
-                    ค่าไฟเดือนนี้
-                    <FlashOnRoundedIcon sx={{ color: "#ffd49f" }} />
-                  </Typography>
-                </Box>
-                <Typography>ใช้ไป 0 หน่วย</Typography>
-                <Typography variant="h4" sx={{ fontFamily: "Kanit" }}>
-                  0 บาท
-                </Typography>
-              </Box>
-            </Button>
-            <Button
-              sx={{
-                height: "100%",
-                boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
-                borderRadius: "10px",
-                padding: "10px",
-                color: "black",
-              }}
-              value="water"
-              onClick={handleClickOpen}
-            >
-              <Box
+                <StyledTypography
+                  sx={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "10px",
+                    fontSize: "20px",
+                    color: "#080160",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  ค่าน้ำ
+                  <WaterDropIcon
+                    sx={{
+                      fontSize: "2rem",
+                      color: "#003366",
+                      marginLeft: "10px",
+                    }}
+                  />
+                </StyledTypography>
+                <br />
+                <br />
+                <br />
+                <StyledTypography
+                  variant="h5"
+                  sx={{ flexGrow: 1, textAlign: "center" }}
+                >
+                  xxxx:
+                </StyledTypography>
+                <StyledTypography
+                  sx={{
+                    position: "absolute",
+                    right: "10px",
+                    bottom: "10px",
+                    fontSize: "15px",
+                    color: "#080160",
+                  }}
+                >
+                  กดเพื่อรายละเอียด
+                </StyledTypography>
+              </Button>
+
+              {/* ค่าไฟas */}
+              <Button
+              variant="contained"
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  width: "100%",
+                  height: "100%",
+                  boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  color: "black",
+                  backgroundColor: "white",
+                  position: "relative",
                 }}
+                onClick={handleOpen}
               >
-                <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <Typography variant="h5" sx={{ fontFamily: "Kanit",alignItems:'center',display:'flex' }}>
-                    ค่าน้ำเดือนนี้
-                    <WaterDropRoundedIcon
-                      sx={{ color: "#dee9ff" }}
-                    />
-                  </Typography>
-                </Box>
-                <Typography>ใช้ไป 0 หน่วย</Typography>
-                <Typography variant="h4" sx={{ fontFamily: "Kanit" }}>
-                  0 บาท
-                </Typography>
-              </Box>
-            </Button>
+                <StyledTypography
+                  sx={{
+                    position: "absolute",
+                    left: "10px",
+                    top: "10px",
+                    fontSize: "20px",
+                    color: "#080160",
+                    fontWeight: "bold",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  ค่าไฟ
+                  <WaterIcon
+                    sx={{
+                      fontSize: "2rem",
+                      color: "#003366",
+                      marginLeft: "10px",
+                    }}
+                  />
+                </StyledTypography>
+                <br />
+                <br />
+                <br />
+                <StyledTypography
+                  variant="h5"
+                  sx={{ flexGrow: 1, textAlign: "center" }}
+                >
+                  xxxx:
+                </StyledTypography>
+                <StyledTypography
+                  sx={{
+                    position: "absolute",
+                    right: "10px",
+                    bottom: "10px",
+                    fontSize: "15px",
+                    color: "#080160",
+                    textAlign: "center",
+                  }}
+                >
+                  กดเพื่อรายละเอียด
+                </StyledTypography>
+              </Button>
+            </Box>
+            <Box sx={{ pt: "25px" }}></Box>
           </Box>
+          <br />
+          <SumraMoney />
+          <PopUp value="elec" handleClose={handleClose} open={open} />
         </Box>
-        <Box
-          component="div"
-          sx={{
-            width: "750px  ",
-            height: "20%",
-            display: "grid",
-            gridTemplate: "repeat(1,1fr) / repeat(2,1fr)",
-            gap: "15px",
-          }}
-        >
-          <Box
-            component="div"
-            sx={{
-              height: "100%",
-              boxShadow: "0 0 5px black",
-              borderRadius: "15px",
-            }}
-          >
-            <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
-              <Typography variant="h4" component="h4" sx={{ color: "black" }}>
-                ประวัติการชำระเงิน
-              </Typography>
-            </Button>
-          </Box>
-          <Box
-            component="div"
-            sx={{
-              height: "100%",
-              boxShadow: "0 0 5px black",
-              borderRadius: "15px",
-            }}
-          >
-            <Button sx={{ width: "100%", height: "100%", padding: "10px" }}>
-              <Typography variant="h4" component="h4" sx={{ color: "black" }}>
-                รายงาน
-              </Typography>
-            </Button>
-          </Box>
-        </Box>
-        <PopUp open={open} handleClose={handleClose} value={value} />
       </Box>
-    </>
+    </div>
   );
 }
 
