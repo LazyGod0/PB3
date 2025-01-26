@@ -8,17 +8,9 @@ import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
-<<<<<<< HEAD
-import "@fontsource/kanit";
-import FirstPage from "./Pages/FirstPage.jsx";
-import FunctionMenu from "./Pages/FunctionMenu.jsx";
-import Payme from "./Pages/Payme.jsx";
-const theme = createTheme({
-=======
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 let theme = createTheme({
->>>>>>> dev
   typography: {
     fontFamily: ["Kanit,san-serif"].join(","),
   },
@@ -45,14 +37,6 @@ function App() {
               <Route path="/forgetpassword" Component={ForgetPassword}></Route>
               {/* <Route element={<ProtectedRoutes />}> */}
                 <Route path="/home" Component={Home}></Route>
-<<<<<<< HEAD
-                <Route path="/functioon" Component={FunctionMenu}></Route>
-                <Route path="/payme" Component={Payme}></Route>
-              </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </AuthProvider>
-=======
                 <Route path="/profile" Component={Profile}></Route>
                 <Route path="/bill" Component={BillPage}></Route>
               {/* </Route> */}
@@ -60,7 +44,6 @@ function App() {
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
->>>>>>> dev
     </>
   );
 }

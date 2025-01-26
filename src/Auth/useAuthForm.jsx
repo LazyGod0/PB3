@@ -67,6 +67,7 @@ export function AuthProvider({ children }) {
   
   // const [logOutState, setLogOutState] = useState(false);
   const theme = useTheme();
+  const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [password, setShowPassword] = useState(false);
   const [user, setUser] = useState(null);
@@ -88,6 +89,12 @@ export function AuthProvider({ children }) {
   //   }
   // },[user,navigate]);
 
+  useEffect(() => {
+    console.log(user)
+    if(user) {
+      navigate('/home');
+    }
+  },[user,navigate])
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
@@ -115,6 +122,7 @@ export function AuthProvider({ children }) {
 
     if (foundUser) {
       setUser(foundUser);
+      console.log(user);
       toast.success("Sign In successful");
       setFormData({
         userName: "",

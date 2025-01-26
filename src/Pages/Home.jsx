@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD
-import { Box, Typography, Button } from "@mui/material";
-import MapsHomeWorkRoundedIcon from "@mui/icons-material/MapsHomeWorkRounded";
-import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
-import FlashOnRoundedIcon from "@mui/icons-material/FlashOnRounded";
-import FunctionMenu from "./FunctionMenu.jsx";
-import { styled } from "@mui/material/styles";
-import Payme from "./Payme.jsx";
-=======
 import { Box, Button, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
@@ -19,15 +10,10 @@ import { useAuth } from "../Auth/useAuthForm.jsx";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import HomeIcon from "@mui/icons-material/Home";
 import WaterIcon from "@mui/icons-material/Water";
->>>>>>> dev
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   fontFamily: "Kanit",
   textAlign: "center",
-<<<<<<< HEAD
-  color: theme.palette.primary.main,
-}));
-=======
   fontWeight: "bold",
   color: "#080160",
 }));
@@ -47,14 +33,36 @@ const TTypography = styled(Typography)(({ theme }) => ({
   width: "750px",
 }));
 
->>>>>>> dev
 
 function Home() {
   const navigate = useNavigate();
   const { user, logOutState } = useAuth();
   const [open, setPopUp] = useState(false);
+  const [value,setValue] = useState("");
+  const [paymentData,setPayment] = useState({
+    ePerUnit:0,
+    eUnit:0,
+    homeRent:0,
+    wPerUnit:0,
+    wUnit:0
+  });
 
-  const handleOpen = () => {
+  useEffect(() => {
+    console.log(user);
+    if(user) {
+      setPayment((prev) => ({
+        ...prev,
+        ePerUnit:user.electricBathPerUnit,
+        eUnit:user.electricUnit,
+        homeRent:user.homeRent,
+        wPerUnit:user.waterBathPerUnit,
+        wUnit:user.waterUnit
+      }))
+    }
+  },[user])
+  const handleOpen = (e) => {
+    setValue(e.currentTarget.value);
+    console.log(value)
     setPopUp(true);
   };
 
@@ -69,11 +77,6 @@ function Home() {
   }, [logOutState, user, navigate]);
 
   return (
-<<<<<<< HEAD
-    <Box sx={{ flexDirection: "column"}}>
-      <NavBar />
-      <FunctionMenu/>
-=======
     <div>
       <br />
       <br />
@@ -81,7 +84,6 @@ function Home() {
       <br />
       <br />
 
->>>>>>> dev
       <Box
         sx={{
           width: "100%",
@@ -90,29 +92,6 @@ function Home() {
           alignItems: "center",
         }}
       >
-<<<<<<< HEAD
-        <Box sx={{ textAlign: "center" }}>
-          <StyledTypography variant="h4">
-            ยินดีต้อนรับ ผู้เช่า {user?.email}
-          </StyledTypography>
-          <Box sx={{ my: 2 }}>
-            <StyledTypography variant="h5" fontFamily="Kanit">
-              บิลค่าใช้จ่าย ประจำเดือน มกรายน 2077
-            </StyledTypography>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            height: "300px",
-            display: "grid",
-            gridTemplate: "auto/ repeat(2,1fr)",
-            alignItems: "center",
-            gap: "25px",
-          }}
-        >
-          <Button
-=======
         <Box sx={{ textAlign: "left", padding: "0 20px" }}>
           <TTypography variant="h5">
             ยินดีต้อนรับ ผู้เช่า {user?.email ? user.email : "สมชาย สายฟ้า"}
@@ -122,7 +101,6 @@ function Home() {
           <NavBar />
           <br />
           <Box
->>>>>>> dev
             sx={{
               // padding: "20px",
               // boxShadow: "0px 0px 10px black",
@@ -135,17 +113,12 @@ function Home() {
               boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
               borderRadius: "10px",
               padding: "10px",
-<<<<<<< HEAD
-              gridRow: "span 2",
-              color: "black",
-=======
               color: "black",
               '.MuiButton-contained':{
                 '&:hover' : {
                   backgroundColor:'rgba(150,200,210,1)'
                 }
               }
->>>>>>> dev
             }}
           >
             <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
@@ -171,6 +144,7 @@ function Home() {
                 color: "black",
                 backgroundColor: "white",
               }}
+              value={"total"}
               onClick={handleOpen}
             >
               {/* ค่าใช้จ่ายรวม text and icon */}
@@ -194,65 +168,12 @@ function Home() {
                     marginLeft: "10px",
                   }}
                 />
-<<<<<<< HEAD
-              </Box>
-            </Box>
-          </Button>
-          <Button
-            sx={{
-              height: "100%",
-              boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
-              borderRadius: "10px",
-              padding: "10px",
-              color: "black",
-            }}
-          >
-            <Box component="div" sx={{ width: "100%", height: "100%" }}>
-              <Box
-                component="div"
-                sx={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <Typography
-                  variant="h5"
-                  component="h5"
-                  sx={{ fontFamily: "Kanit" }}
-                >
-                  ค่าไฟเดือนนี้
-                </Typography>
-                <FlashOnRoundedIcon sx={{ color: "#ffd49f", ml: "10px" }} />
-                <Typography
-                  component="p"
-                  sx={{
-                    justifySelf: "flex-end",
-                    width: "150px",
-                    textAlign: "end",
-                  }}
-                >
-                  ใช้ไป x หน่วย
-                </Typography>
-              </Box>
-            </Box>
-          </Button>
-          <Button
-            sx={{
-              height: "100%",
-              boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
-              borderRadius: "10px",
-              padding: "10px",
-              color: "black",
-            }}
-          >
-            <Box component="div" sx={{ width: "100%", height: "100%" }}>
-              <Box
-                component="div"
-                sx={{ display: "flex", alignItems: "center" }}
-=======
               </StyledTypography>
               <StyledTypography
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
               >
-                xxxx:
+                {(parseFloat(paymentData.homeRent)+parseFloat(paymentData.ePerUnit*paymentData.eUnit)+parseFloat(paymentData.wPerUnit*paymentData.wUnit)).toFixed(2)}
               </StyledTypography>
               <StyledTypography
                 sx={{
@@ -262,7 +183,6 @@ function Home() {
                   fontSize: "20px",
                   color: "#080160",
                 }}
->>>>>>> dev
               >
                 กดเพื่อรายละเอียด
               </StyledTypography>
@@ -288,29 +208,14 @@ function Home() {
                   backgroundColor: "white",
                   position: "relative",
                 }}
+                value={"home"}
                 onClick={handleOpen}
               >
                 <StyledTypography
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-<<<<<<< HEAD
-                  ค่าน้ำเดือนนี้
-                </Typography>
-                <WaterDropRoundedIcon sx={{ color: "#dee9ff", ml: "10px" }} />
-                <Typography
-                  component="p"
-                  sx={{
-                    justifySelf: "flex-end",
-                    width: "150px",
-                    textAlign: "end",
-                  }}
-                >
-                  ใช้ไป x หน่วย
-                </Typography>
-              </Box>
-=======
-                  xxxx:
+                  {paymentData.homeRent}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -358,6 +263,7 @@ function Home() {
                   backgroundColor: "white",
                   position: "relative",
                 }}
+                value={"water"}
                 onClick={handleOpen}
               >
                 <StyledTypography
@@ -388,7 +294,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  xxxx:
+                  {(paymentData.wPerUnit*paymentData.wPerUnit).toFixed(2)}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -415,6 +321,7 @@ function Home() {
                   backgroundColor: "white",
                   position: "relative",
                 }}
+                value={"elec"}
                 onClick={handleOpen}
               >
                 <StyledTypography
@@ -445,7 +352,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  xxxx:
+                  {(paymentData.ePerUnit*paymentData.eUnit).toFixed(2)}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -460,21 +367,15 @@ function Home() {
                   กดเพื่อรายละเอียด
                 </StyledTypography>
               </Button>
->>>>>>> dev
             </Box>
             <Box sx={{ pt: "25px" }}></Box>
           </Box>
           <br />
           <SumraMoney />
-          <PopUp value="elec" handleClose={handleClose} open={open} />
+          <PopUp value={value} handleClose={handleClose} open={open} />
         </Box>
       </Box>
-<<<<<<< HEAD
-      <Payme/>
-    </Box>
-=======
     </div>
->>>>>>> dev
   );
 }
 
