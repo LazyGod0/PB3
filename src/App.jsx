@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
-import ForgetPassword from "./Pages/ForgetPassword.jsx";
-import Profile from "./Pages/Profile.jsx";
+import NavBar from "./Component/NavBar.jsx";
 import Home from "./Pages/Home.jsx";
 import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
@@ -31,6 +30,7 @@ let theme = createTheme({
 function App() {
   function AppRoutes() {
     let element = useRoutes([
+      
       {
         path: "/",
         element: <Login />,
