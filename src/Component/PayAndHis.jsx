@@ -3,6 +3,7 @@ import { Box, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import { useNavigate } from "react-router-dom";
 
 const WhiteTypography = styled(Typography)(({ theme }) => ({
   fontFamily: "Kanit",
@@ -11,7 +12,9 @@ const WhiteTypography = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-function SumraMoney() {
+function PayAndHis() {
+  const navigate = useNavigate();
+
   return (
     <>
       <Box
@@ -39,6 +42,7 @@ function SumraMoney() {
               padding: "10px",
               backgroundColor: "#080160",
             }}
+            onClick={(e) => navigate('/his')}
           >
             <WhiteTypography
               variant="h5"
@@ -65,6 +69,7 @@ function SumraMoney() {
               padding: "8px",
               backgroundColor: "#080160",
             }}
+            onClick={(e) => navigate('/bill')}
           >
             <WhiteTypography
               variant="h5"
@@ -81,4 +86,4 @@ function SumraMoney() {
   );
 }
 
-export default SumraMoney;
+export default PayAndHis;

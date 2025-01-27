@@ -8,8 +8,7 @@ import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
-import NavBar from "./Component/NavBar.jsx";
-import { useLocation } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
@@ -30,21 +29,29 @@ let theme = createTheme({
 });
 
 function App() {
+  function AppRoutes() {
+    let element = useRoutes([
+      {
+        path: "/",
+        element: <Login/>},
+        // children: [
+          {
+            path: "/home",
+            element: <Home />,
+          },
+          { path: "/bill", element: <BillPage/> },
+          { path:"/his",element:<PaymentHistory/>}
+        // ],
+      ,
+    ]);
+    return element
+  }
   return (
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <AuthProvider>
-            <Routes>
-              <Route path="/" Component={Login}></Route>
-              <Route path="/forgetpassword" Component={ForgetPassword}></Route>
-              {/* <Route element={<ProtectedRoutes />}> */}
-                <Route path="/home" Component={Home}></Route>
-                <Route path="/profile" Component={Profile}></Route>
-                <Route path="/bill" Component={BillPage}></Route>
-              {/* </Route> */}
-              <Route path="/his" Component={PaymentHistory}></Route>
-            </Routes>
+            <AppRoutes/>
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>

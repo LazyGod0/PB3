@@ -4,36 +4,53 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import BedIcon from "@mui/icons-material/Bed";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import HomeIcon from "@mui/icons-material/Home";
+import { Button } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from "../Auth/useAuthForm";
 
 function NavBar() {
+  const {handleSignOut} = useAuth();
   return (
-    <Box sx={{ flexGrow: 1 , p:0.02}}>
-      <AppBar position="static" sx={{ backgroundColor: "#010052" }}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            aria-label="bed icon"
-            sx={{ mr: 2, color: "white" }}
+    <Box >
+      <AppBar position="static" sx={{ backgroundColor: "#16325B" }}>
+        
+          <Toolbar
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            <BedIcon sx={{ fontSize: 40 }} />
-          </IconButton>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{ flexGrow: 1, color: "white" }}
-          >
-            Our-Home
-          </Typography>
-          <IconButton
-            edge="start"
-            aria-label="notifications icon"
-            sx={{ mr: 2, color: "white" }}
-          >
-            <NotificationsActiveIcon sx={{ fontSize: 40 }} />
-          </IconButton>
-        </Toolbar>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <IconButton
+                edge="start"
+                aria-label="home icon"
+                sx={{ color: "white" }}
+              >
+                <HomeIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="h6" sx={{ color: "white" }}>
+                Our-Home
+              </Typography>
+            </Box>
+            <Box>
+            <IconButton
+              edge="end"
+              aria-label="notifications icon"
+              sx={{ color: "white" }}
+            >
+              <NotificationsActiveIcon sx={{ fontSize: 32 }} />
+            </IconButton>     
+            <Button startIcon={<LogoutIcon sx={{color:'white',ml:'20px'}}/>} onClick={handleSignOut}>
+              <Typography variant="body2" sx={{color:'white'}}>
+                ออกจากระบบ
+              </Typography>
+            </Button>
+            </Box>
+          </Toolbar>
+        
       </AppBar>
     </Box>
   );

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import AttachMoneyRoundedIcon from "@mui/icons-material/AttachMoneyRounded";
 import NavBar from "../Component/NavBar.jsx";
 import PopUp from "../Component/PopUp.jsx";
-import SumraMoney from "../Component/Sumramoney.jsx";
+import PayAndHis from "../Component/PayAndHis.jsx";
 import { useAuth } from "../Auth/useAuthForm.jsx";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import HomeIcon from "@mui/icons-material/Home";
@@ -36,10 +36,13 @@ const TTypography = styled(Typography)(({ theme }) => ({
 
 function Home() {
   const navigate = useNavigate();
-  const { user, logOutState } = useAuth();
+  const { user, userData} = useAuth();
+  const [loading,setLoading] = useState(false)
   const [open, setPopUp] = useState(false);
   const [value,setValue] = useState("");
   const [paymentData,setPayment] = useState({
+    firstName:"",
+    lastName:"",
     ePerUnit:0,
     eUnit:0,
     homeRent:0,
@@ -49,19 +52,22 @@ function Home() {
   });
 
   useEffect(() => {
-    console.log(user);
-    if(user) {
+    setLoading(true)
+    if(userData) {
+      setLoading(false)
       setPayment((prev) => ({
         ...prev,
-        ePerUnit:parseFloat(user.electricBathPerUnit) || 0,
-        eUnit:parseFloat(user.electricUnit) || 0,
-        homeRent:parseFloat(user.homeRent) || 0,
-        wPerUnit:parseFloat(user.waterBathPerUnit) || 0,
-        wUnit:parseFloat(user.waterUnit)  || 0,
-        outstandingBalance:parseFloat(user.outstandingBalance) || 0
+        firstName:userData.firstName,
+        lastName:userData.lastName,
+        ePerUnit:parseFloat(userData.ePerUnit) || 0,
+        eUnit:parseFloat(userData.eUnit) || 0,
+        homeRent:parseFloat(userData.homeRent) || 0,
+        wPerUnit:parseFloat(userData.wPerUnit) || 0,
+        wUnit:parseFloat(userData.wUnit)  || 0,
+        outstandingBalance:parseFloat(userData.outstandingBalance) || 0
       }))
     }
-  },[user])
+  },[userData,user])
   const handleOpen = (e) => {
     setValue(e.currentTarget.value);
     console.log(value)
@@ -72,11 +78,6 @@ function Home() {
     setPopUp(false);
   };
 
-  useEffect(() => {
-    if (logOutState && !user) {
-      navigate("/");
-    }
-  }, [logOutState, user, navigate]);
 
   return (
     <div>
@@ -94,7 +95,7 @@ function Home() {
       >
         <Box sx={{ textAlign: "left", padding: "0 20px" }}>
           <TTypography variant="h5">
-            ยินดีต้อนรับ ผู้เช่า {user?.email ? user.email : "สมชาย สายฟ้า"}
+            ยินดีต้อนรับ ผู้เช่า {loading? (<CircularProgress/>): (paymentData && paymentData.firstName !== "" && paymentData.lastName!=="")? `${paymentData.firstName} ${paymentData.lastName}`:"John Doe"}
           </TTypography>
         </Box>
         <Box sx={{padding:"0 20px"}}>
@@ -173,7 +174,7 @@ function Home() {
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
               >
-                {(paymentData.outstandingBalance+paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
+                {loading? (<CircularProgress/>):(paymentData.outstandingBalance+paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
               </StyledTypography>
               <StyledTypography
                 sx={{
@@ -215,7 +216,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {paymentData.homeRent.toLocaleString()}
+                  {loading? (<CircularProgress/>):paymentData.homeRent.toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -294,7 +295,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {(paymentData.wUnit*paymentData.wPerUnit).toLocaleString()}
+                  {loading? (<CircularProgress/>):(paymentData.wUnit*paymentData.wPerUnit).toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -352,7 +353,7 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {(paymentData.ePerUnit*paymentData.eUnit).toLocaleString()}
+                  {loading? (<CircularProgress/>):(paymentData.ePerUnit*paymentData.eUnit).toLocaleString()}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -371,7 +372,7 @@ function Home() {
             <Box sx={{ pt: "25px" }}></Box>
           </Box>
           <br />
-          <SumraMoney />
+          <PayAndHis />
           <PopUp value={value} handleClose={handleClose} open={open} />
         </Box>
       </Box>

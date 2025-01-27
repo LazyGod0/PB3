@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { db } from "../firebase/firebase";
-import { getDocs, collection } from "firebase/firestore";
+import { db,auth } from "../firebase/firebase";
+import { getDoc, doc} from "firebase/firestore";
 import { useMediaQuery,useTheme } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword,onAuthStateChanged,signOut } from "firebase/auth";
 const AuthContext = createContext(null);
 
 export const useAuth = () => {
@@ -67,81 +68,73 @@ export function AuthProvider({ children }) {
   
   // const [logOutState, setLogOutState] = useState(false);
   const theme = useTheme();
-  const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [password, setShowPassword] = useState(false);
   const [user, setUser] = useState(null);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    roomNumber: "",
-    email: "",
-    password: "",
-    state: "",
-  });
-  
-  // useEffect(() => {
-  //   if(user && location.pathname === '/') {
-  //     navigate('/home');
-  //   } else if (user === null) {
-  //     navigate('/');
-  //   }
-  // },[user,navigate]);
+  const [userData,setUserData] = useState(null);
+  const [loading,setLoading] = useState(false)
 
   useEffect(() => {
-    console.log(user)
-    if(user) {
-      navigate('/home');
-    }
-  },[user,navigate])
-  const toggleShowPassword = () => {
-    setShowPassword((prevState) => !prevState);
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const handleSignIn = async (event) => {
-  event.preventDefault();
-  try {
-    const collectionRef = collection(db, "Users");
-    const querySnapshot = await getDocs(collectionRef);
-    let foundUser = null;
-    querySnapshot.forEach((doc) => {
-      const docData = doc.data();
-      if (docData.userName === formData.userName && docData.password === formData.password) {
-        foundUser = docData;
-      }
+    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+      const fetchUserData = async () => {
+        if (currentuser) {
+          setUser(currentuser);
+          try {
+            const data = await fetchData(db, currentuser);
+            if (data) {
+              console.log(data);
+              setUserData(data);
+            }
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          }
+        }
+      };
+  
+      fetchUserData();
     });
+  
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+  
 
-    if (foundUser) {
-      setUser(foundUser);
-      console.log(user);
-      toast.success("Sign In successful");
-      setFormData({
-        userName: "",
-        password: "",
-      });
+  const handleSignIn = async (event,email,password) => {
+  event.preventDefault()
+  try {
+    if (email && password) {
+      const userCredential = await signInWithEmailAndPassword(auth,email,password);
+      
+      if(!userCredential) {
+        setLoading(true)
+      } else {
+        setLoading(false)
+        const userLogIn = userCredential.user;
+        setUser(userLogIn);
+        toast.success("Log In success!!")
+      }
+      
     } else {
-      toast.error("Invalid username or password");
+      throw new Error("Email or Password is empty");
     }
   } catch (error) {
-    toast.error("Error during sign-in");
+    toast.error("Error during sign-in "+error);
   }
 };
 
   const handleSignOut = async () => {
     try {
-      setUser(null);
-      toast.success("Successfully signed out", {
-        position: 'top-center',
-      });
+      console.log("Yeah it works")
+      await signOut(auth);
+      console.log(user)
+      setUser(null)
+      if(user === null) {
+        setUserData(null);
+        toast.success("Successfully signed out", {
+          position: 'top-center',
+        });
+      }
+      
     } catch (error) {
       toast.error("Error during sign out", {
         position: 'top-center',
@@ -149,20 +142,32 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const fetchData = async (db,user) => {
+    if(user) {
+      const docRef = doc(db,"Users",user.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log(docSnap.data())
+        setUserData(docSnap.data());
+      } else {
+        toast.error("Document not found ");
+      }
+    }  
+  }
+
   return (
     <AuthContext.Provider
       value={{
-        user,
         handleSignIn,
         handleSignOut,
-        toast,
         ToastContainer,
+        fetchData,
+        user,
+        userData,
+        toast,
         styleMap,
-        formData,
-        setFormData,
-        handleChange,
-        toggleShowPassword,
-        password,
+        loading
       }}
     >
       {toast && (
