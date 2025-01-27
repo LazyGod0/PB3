@@ -9,8 +9,10 @@ import HomeIcon from "@mui/icons-material/Home";
 import { Button } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAuth } from "../Auth/useAuthForm";
+import { useNavigate } from "react-router-dom";
 
 function NavBar() {
+  const navigate = useNavigate();
   const {handleSignOut} = useAuth();
   return (
     <Box >
@@ -28,6 +30,7 @@ function NavBar() {
                 edge="start"
                 aria-label="home icon"
                 sx={{ color: "white" }}
+                onClick={(e) => navigate('/home')}
               >
                 <HomeIcon sx={{ fontSize: 32 }} />
               </IconButton>

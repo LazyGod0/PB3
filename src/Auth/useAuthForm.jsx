@@ -85,7 +85,7 @@ export function AuthProvider({ children }) {
               setUserData(data);
             }
           } catch (error) {
-            console.error("Error fetching user data:", error);
+            toast.error("Error fetching user data: "+error);
           }
         }
       };
@@ -105,10 +105,7 @@ export function AuthProvider({ children }) {
     if (email && password) {
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
       
-      if(!userCredential) {
-        setLoading(true)
-      } else {
-        setLoading(false)
+      if(userCredential) {
         const userLogIn = userCredential.user;
         setUser(userLogIn);
         toast.success("Log In success!!")
@@ -126,7 +123,7 @@ export function AuthProvider({ children }) {
     try {
       console.log("Yeah it works")
       await signOut(auth);
-      console.log(user)
+      // console.log(user)
       setUser(null)
       if(user === null) {
         setUserData(null);
@@ -148,7 +145,7 @@ export function AuthProvider({ children }) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log(docSnap.data())
+        // console.log(docSnap.data())
         setUserData(docSnap.data());
       } else {
         toast.error("Document not found ");

@@ -18,13 +18,12 @@ import Diversity3Icon from "@mui/icons-material/Diversity3";
 import Grid2 from "@mui/material/Grid2";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../Auth/useAuthForm";
-import CircularProgress from "@mui/joy/CircularProgress";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
   const location = useLocation();
 
-  const { styleMap, handleSignIn, loading, user } = useAuth();
+  const { styleMap, handleSignIn, user } = useAuth();
 
   const style = styleMap[location.pathname];
   const theme = useTheme();
@@ -49,11 +48,10 @@ function Login() {
   useEffect(() => {
     if (user) {
       navigate("/home");
-    }
-  }, [user, navigate]);
+    } 
+  }, [user]);
   return (
     <>
-    {loading && <CircularProgress/>}
       <Box
         component="div"
         sx={{

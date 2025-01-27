@@ -33,51 +33,53 @@ const TTypography = styled(Typography)(({ theme }) => ({
   width: "750px",
 }));
 
-
 function Home() {
   const navigate = useNavigate();
-  const { user, userData} = useAuth();
-  const [loading,setLoading] = useState(false)
+  const { user, userData } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [open, setPopUp] = useState(false);
-  const [value,setValue] = useState("");
-  const [paymentData,setPayment] = useState({
-    firstName:"",
-    lastName:"",
-    ePerUnit:0,
-    eUnit:0,
-    homeRent:0,
-    wPerUnit:0,
-    wUnit:0,
-    outstandingBalance:0
+  const [value, setValue] = useState("");
+  const [paymentData, setPayment] = useState({
+    firstName: "",
+    lastName: "",
+    ePerUnit: 0,
+    eUnit: 0,
+    homeRent: 0,
+    wPerUnit: 0,
+    wUnit: 0,
+    outstandingBalance: 0,
   });
 
   useEffect(() => {
-    setLoading(true)
-    if(userData) {
-      setLoading(false)
-      setPayment((prev) => ({
-        ...prev,
-        firstName:userData.firstName,
-        lastName:userData.lastName,
-        ePerUnit:parseFloat(userData.ePerUnit) || 0,
-        eUnit:parseFloat(userData.eUnit) || 0,
-        homeRent:parseFloat(userData.homeRent) || 0,
-        wPerUnit:parseFloat(userData.wPerUnit) || 0,
-        wUnit:parseFloat(userData.wUnit)  || 0,
-        outstandingBalance:parseFloat(userData.outstandingBalance) || 0
-      }))
+    if (user) {
+      setLoading(true);
+      if (userData) {
+        setLoading(false);
+        setPayment((prev) => ({
+          ...prev,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          ePerUnit: parseFloat(userData.ePerUnit) || 0,
+          eUnit: parseFloat(userData.eUnit) || 0,
+          homeRent: parseFloat(userData.homeRent) || 0,
+          wPerUnit: parseFloat(userData.wPerUnit) || 0,
+          wUnit: parseFloat(userData.wUnit) || 0,
+          outstandingBalance: parseFloat(userData.outstandingBalance) || 0,
+        }));
+      }
+    } else {
+      navigate("/");
+      console.log(user)
     }
-  },[userData,user])
+  }, [userData, user]);
   const handleOpen = (e) => {
     setValue(e.currentTarget.value);
-    console.log(value)
     setPopUp(true);
   };
 
   const handleClose = () => {
     setPopUp(false);
   };
-
 
   return (
     <div>
@@ -95,11 +97,19 @@ function Home() {
       >
         <Box sx={{ textAlign: "left", padding: "0 20px" }}>
           <TTypography variant="h5">
-            ยินดีต้อนรับ ผู้เช่า {loading? (<CircularProgress/>): (paymentData && paymentData.firstName !== "" && paymentData.lastName!=="")? `${paymentData.firstName} ${paymentData.lastName}`:"John Doe"}
+            ยินดีต้อนรับ ผู้เช่า{" "}
+            {loading ? (
+              <CircularProgress />
+            ) : paymentData &&
+              paymentData.firstName !== "" &&
+              paymentData.lastName !== "" ? (
+              `${paymentData.firstName} ${paymentData.lastName}`
+            ) : (
+              "John Doe"
+            )}
           </TTypography>
         </Box>
-        <Box sx={{padding:"0 20px"}}>
-          
+        <Box sx={{ padding: "0 20px" }}>
           <br />
           <Box
             sx={{
@@ -115,11 +125,11 @@ function Home() {
               borderRadius: "10px",
               padding: "10px",
               color: "black",
-              '.MuiButton-contained':{
-                '&:hover' : {
-                  backgroundColor:'rgba(150,200,210,1)'
-                }
-              }
+              ".MuiButton-contained": {
+                "&:hover": {
+                  backgroundColor: "rgba(150,200,210,1)",
+                },
+              },
             }}
           >
             <Box sx={{ textAlign: "center", marginBottom: "20px" }}>
@@ -130,7 +140,7 @@ function Home() {
 
             {/* ค่าใช้จ่ายรวม */}
             <Button
-            variant="contained"
+              variant="contained"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -174,7 +184,16 @@ function Home() {
                 variant="h5"
                 sx={{ flexGrow: 1, textAlign: "center" }}
               >
-                {loading? (<CircularProgress/>):(paymentData.outstandingBalance+paymentData.homeRent+(paymentData.ePerUnit*paymentData.eUnit)+(paymentData.wPerUnit*paymentData.wUnit)).toLocaleString()}
+                {loading ? (
+                  <CircularProgress />
+                ) : (
+                  (
+                    paymentData.outstandingBalance +
+                    paymentData.homeRent +
+                    paymentData.ePerUnit * paymentData.eUnit +
+                    paymentData.wPerUnit * paymentData.wUnit
+                  ).toLocaleString()
+                )}
               </StyledTypography>
               <StyledTypography
                 sx={{
@@ -199,7 +218,7 @@ function Home() {
             >
               {/* ค่าเช่าห้อง */}
               <Button
-              variant="contained"
+                variant="contained"
                 sx={{
                   height: "100%",
                   boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
@@ -216,7 +235,11 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {loading? (<CircularProgress/>):paymentData.homeRent.toLocaleString()}
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    paymentData.homeRent.toLocaleString()
+                  )}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -254,7 +277,7 @@ function Home() {
 
               {/* ค่าน้ำ */}
               <Button
-              variant="contained"
+                variant="contained"
                 sx={{
                   height: "100%",
                   boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
@@ -295,7 +318,11 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {loading? (<CircularProgress/>):(paymentData.wUnit*paymentData.wPerUnit).toLocaleString()}
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    (paymentData.wUnit * paymentData.wPerUnit).toLocaleString()
+                  )}
                 </StyledTypography>
                 <StyledTypography
                   sx={{
@@ -312,7 +339,7 @@ function Home() {
 
               {/* ค่าไฟas */}
               <Button
-              variant="contained"
+                variant="contained"
                 sx={{
                   height: "100%",
                   boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
@@ -353,7 +380,11 @@ function Home() {
                   variant="h5"
                   sx={{ flexGrow: 1, textAlign: "center" }}
                 >
-                  {loading? (<CircularProgress/>):(paymentData.ePerUnit*paymentData.eUnit).toLocaleString()}
+                  {loading ? (
+                    <CircularProgress />
+                  ) : (
+                    (paymentData.ePerUnit * paymentData.eUnit).toLocaleString()
+                  )}
                 </StyledTypography>
                 <StyledTypography
                   sx={{

@@ -12,6 +12,7 @@ import { useRoutes } from "react-router-dom";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
+import UserRoutes from "./routes/user-routes.jsx";
 let theme = createTheme({
   typography: {
     fontFamily: ["Kanit,san-serif"].join(","),
@@ -23,7 +24,6 @@ let theme = createTheme({
     },
     secondary: {
       main: "#577BC1",
-      
     },
   },
 });
@@ -33,25 +33,29 @@ function App() {
     let element = useRoutes([
       {
         path: "/",
-        element: <Login/>},
-        // children: [
+        element: <Login />,
+      },
+      {
+        path: "/",
+        element: <UserRoutes />,
+        children: [
           {
             path: "/home",
             element: <Home />,
           },
-          { path: "/bill", element: <BillPage/> },
-          { path:"/his",element:<PaymentHistory/>}
-        // ],
-      ,
+          { path: "/bill", element: <BillPage /> },
+          { path: "/his", element: <PaymentHistory /> },
+        ]
+      }
     ]);
-    return element
+    return element;
   }
   return (
     <>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <AuthProvider>
-            <AppRoutes/>
+            <AppRoutes />
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
