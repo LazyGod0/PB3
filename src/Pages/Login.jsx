@@ -42,12 +42,13 @@ function Login() {
           borderRadius: "20px",
         }}
       >
-        <Grid2 container spacing={2} sx={{ height: "100%",padding:'10px' }}>
+        <Grid2 container spacing={2} sx={{ height: "100%",padding:'10px',backgroundColor:'white' }}>
           {isMobile ? (
-            <Grid2 size={{xs:12}} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid2 size={{xs:12}} sx={{ display: "flex", justifyContent: "center",backgroundColor:'#78B7D0' }}>
               <ImageList sx={{ width: "60%" }} cols={1}>
                 <ImageListItem>
-                  <img src="Food.webp" alt="Our Home" loading="lazy" style={{ borderRadius: "15px", width: "100%" }} />
+                <img src="/logoverynew-Photoroom.png" alt="Our Home" loading="lazy" style={{ borderRadius: "15px", width: "100%" }} />
+
                 </ImageListItem>
               </ImageList>
             </Grid2>
@@ -59,14 +60,14 @@ function Login() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: '#78B7D0',
                 borderRadius: "10px 0 0 10px",
                 padding: "20px",
               }}
             >
               <ImageList sx={{ width: "70%" }} cols={1}>
                 <ImageListItem>
-                  <img src="Food.webp" alt="Our Home" loading="lazy" style={{ borderRadius: "15px", width: "100%" }} />
+                <img src="/logoverynew-Photoroom.png" alt="Our Home" loading="lazy" style={{ borderRadius: "15px", width: "100%" }} />
                 </ImageListItem>
               </ImageList>
               <Typography
@@ -91,12 +92,12 @@ function Login() {
                 <TextField variant="outlined" label="Username" name="userName" value={formData.userName} onChange={handleChange} required/>
                 <TextField variant="outlined" label="Password" name="password" type={password ? "text" : "password"} value={formData.password} onChange={handleChange} required/>
                 <FormControlLabel control={<Checkbox checked={password} onChange={toggleShowPassword} />} label="Show Password" />
-                <Button variant="contained" sx={{color:'white'}} color="secondary" type="submit" fullWidth>
+                <Button variant="contained" sx={{color:'white',backgroundColor:'#78B7D0'}}  type="submit" fullWidth>
                   <Typography variant="body2">Sign In</Typography>
                 </Button>
               </FormControl>
             </Box>
-            {!isMobile && <Diversity3Icon sx={{ fontSize: "5rem" }} color="primary" />}
+            {!isMobile && <Diversity3Icon sx={{ fontSize: "5rem",color:'#78B7D0' }} color="primary" />}
           </Grid2>
         </Grid2>
       </Paper>

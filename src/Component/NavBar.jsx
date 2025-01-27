@@ -8,8 +8,12 @@ import BedIcon from "@mui/icons-material/Bed";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import HomeIcon from '@mui/icons-material/Home';
 import { Container, Grid2 } from "@mui/material";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function NavBar() {
+
+    const navigate = useNavigate();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#16325B" }}>
@@ -18,9 +22,10 @@ function NavBar() {
           <IconButton
             edge="start"
             aria-label="bed icon"
+            onClick={() => navigate("/home")} 
             sx={{ mr: 1, color: "white" }}
           >
-            <HomeIcon sx={{ fontSize: 50 }} />
+            <HomeIcon sx={{ fontSize: 50 }}   />
           </IconButton>
           <Typography
             variant="h5"
@@ -33,6 +38,8 @@ function NavBar() {
             edge="start"
             aria-label="notifications icon"
             sx={{ mr: 0, color: "white" }}
+            onClick={(e) => 
+              alert("จ่ายตังด้วยน้อง")}
           >
             <NotificationsActiveIcon sx={{ fontSize: 40 }} />
           </IconButton>

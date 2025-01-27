@@ -83,12 +83,12 @@ function Home() {
     <Container>
       <Grid2 size={12}>
         <Grid2 size={12}>
-          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',ml:4,py:3}}>
+          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',ml:4,py:2}}>
                 ยินดีต้อนรับ ผู้เช่า {user?.email}
             </Typography>
         </Grid2>
-        <Grid2 size={12}>
-            <Box sx={{ width:'100%' , backgroundColor:'#78B7D0' , mx:4,p:1,borderRadius:5,px:15,py:5 }}>
+        <Grid2 size={12} sx={{ px:10 }}>
+            <Box sx={{ width:'100%' , backgroundColor:'#78B7D0' , mx:0,p:1,borderRadius:5,px:15,py:5 }}>
                 <Typography variant="h5" sx={{ color:'white',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',pb:3, textAlign:'center'}}>
                   บิลค่าใช้จ่าย ประจำเดือน มกราคม 2077
                 </Typography>
@@ -98,7 +98,7 @@ function Home() {
                     sx={{
                       alignItems: "center",
                       justifyContent: "space-between",
-                      p:10,
+                      p:5,
                       boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
                       marginBottom: "20px",
                       position: "relative",
@@ -163,7 +163,7 @@ function Home() {
                       height: "100%",
                       boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
                       borderRadius: "10px",
-                      padding: "75px",
+                      padding: "50px",
                       color: "black",
                       backgroundColor: "white",
                       position: "relative",
@@ -334,13 +334,15 @@ function Home() {
         </Grid2>
         <Grid2 size={12}>
         <Box sx={{display:'flex',justifyContent:'center' , my:5}}>
-                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1 ,display:'flex' ,flexDirection:'column' ,alignItems:'center'}}>
+                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1 ,display:'flex' ,flexDirection:'column' ,alignItems:'center',cursor: "pointer",
+                "&:hover": { backgroundColor: "#1B416A" }}} onClick={() => navigate("/his")}  >
                   <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white'}} >
                     ประวัติการชำระเงิน
                   </Typography>
                   <SearchIcon sx={{color:'white',fontSize:30}}/>
                 </Box>
-                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1,display:'flex' ,flexDirection:'column' ,alignItems:'center'}}>
+                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1,display:'flex' ,flexDirection:'column' ,alignItems:'center',cursor: "pointer",
+                 "&:hover": { backgroundColor: "#1B416A" }}} onClick={() => navigate("/bill")}>
                   <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white'}} >
                     ชำระเงิน
                   </Typography>
