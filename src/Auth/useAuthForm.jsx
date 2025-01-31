@@ -81,7 +81,6 @@ export function AuthProvider({ children }) {
           try {
             const data = await fetchData(db, currentuser);
             if (data) {
-              console.log(data);
               setUserData(data);
             }
           } catch (error) {
@@ -121,9 +120,7 @@ export function AuthProvider({ children }) {
 
   const handleSignOut = async () => {
     try {
-      console.log("Yeah it works")
       await signOut(auth);
-      // console.log(user)
       setUser(null)
       if(user === null) {
         setUserData(null);

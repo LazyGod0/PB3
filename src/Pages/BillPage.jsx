@@ -20,7 +20,7 @@ function BillPage() {
   };
   return (
     <Box>
-          <NavBar/>
+         <NavBar/> 
     <Container>
         <Grid2 size={12} sx={{mt:4 , ml:4 , mb:4}}>
           <Typography variant="h5" sx={{ color:'#16325B', fontWeight:'700'}}>
