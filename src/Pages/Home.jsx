@@ -10,7 +10,6 @@ import { useAuth } from "../Auth/useAuthForm.jsx";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import HomeIcon from "@mui/icons-material/Home";
 import BoltIcon from "@mui/icons-material/Bolt";
-import FunctionMenu from "./FunctionMenu.jsx";
 import SearchIcon from "@mui/icons-material/Search";
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 

@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import ForgetPassword from "./Pages/ForgetPassword.jsx";
-import FirstPage from "./Pages/FirstPage.jsx";
 import Sumramoney from "./Pages/Sumramoney.jsx";
 import HomeV2 from "./Pages/HomeV2.jsx";
 import NavBar from "./Component/NavBar.jsx";
