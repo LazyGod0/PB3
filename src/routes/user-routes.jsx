@@ -1,15 +1,33 @@
-import React from 'react'
-import { useAuth } from '../Auth/useAuthForm'
-import { Navigate, Outlet } from 'react-router-dom';
+import React from "react";
+import { useAuth } from "../Auth/useAuthForm";
+import { Navigate, Outlet } from "react-router-dom";
+import { CircularProgress, Box } from "@mui/material";
 
 const UserRoutes = () => {
-  const { user } = useAuth();
+  const auth = useAuth();
 
-  if (!user) {
-    return <Navigate to="/" />
+  if (auth.loading) {
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress size={70}/>
+      </Box>
+    );
   }
 
-  return <Outlet />
-}
+  if (!auth?.user) {
+    return <Navigate to="/" />;
+  }
 
-export default UserRoutes
+  return <Outlet />;
+};
+
+export default UserRoutes;

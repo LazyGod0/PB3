@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import NavBar from "./Component/NavBar.jsx";
 import Home from "./Pages/Home.jsx";
+import HomeAdmin from "./Pages/Admin/HomeAdmin.jsx";
 import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
@@ -30,34 +31,32 @@ let theme = createTheme({
 function App() {
   function AppRoutes() {
     let element = useRoutes([
-      
+      { path: "/homeadmin", element: <HomeAdmin /> },
       {
-        path: "/",
+        path: "",
         element: <Login />,
       },
       {
-        path: "/",
+        path: "",
         element: <UserRoutes />,
         children: [
           {
-            path: "/home",
+            path: "home",
             element: <Home />,
           },
-          { path: "/bill", element: <BillPage /> },
-          { path: "/his", element: <PaymentHistory /> },
-        ]
-      }
+          { path: "bill", element: <BillPage /> },
+          { path: "his", element: <PaymentHistory /> },
+        ],
+      },
     ]);
     return element;
   }
   return (
     <>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AuthProvider>
-            <AppRoutes />
-          </AuthProvider>
-        </BrowserRouter>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

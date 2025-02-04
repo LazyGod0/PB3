@@ -71,37 +71,34 @@ export function AuthProvider({ children }) {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [user, setUser] = useState(null);
   const [userData,setUserData] = useState(null);
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      const fetchUserData = async () => {
-        if (currentuser) {
-          setUser(currentuser);
-          try {
-            const data = await fetchData(db, currentuser);
-            if (data) {
-              setUserData(data);
-            }
-          } catch (error) {
-            toast.error("Error fetching user data: "+error);
-          }
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser) {
+      setUser(currentUser);
+      try {
+        const data = await fetchData(db, currentUser);
+        if (data) {
+          setUserData(data);
         }
-      };
-  
-      fetchUserData();
-    });
-  
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+      } catch (error) {
+        toast.error("Error fetching user data: " + error);
+      }
+    } else {
+      setUser(null);
+      setUserData(null);
+    }
+    setLoading(false);
+  });
+  return () => unsubscribe();
+}, []);
+
   
 
   const handleSignIn = async (event,email,password) => {
   event.preventDefault()
   try {
-    if (email && password) {
       const userCredential = await signInWithEmailAndPassword(auth,email,password);
       
       if(userCredential) {
@@ -109,10 +106,6 @@ export function AuthProvider({ children }) {
         setUser(userLogIn);
         toast.success("Log In success!!")
       }
-      
-    } else {
-      throw new Error("Email or Password is empty");
-    }
   } catch (error) {
     toast.error("Error during sign-in "+error);
   }
