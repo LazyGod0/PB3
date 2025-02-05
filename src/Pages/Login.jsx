@@ -21,11 +21,9 @@ import { useAuth } from "../Auth/useAuthForm";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const location = useLocation();
 
-  const { styleMap, handleSignIn, user } = useAuth();
+  const {  handleSignIn, user } = useAuth();
 
-  const style = styleMap[location.pathname];
   const theme = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +53,7 @@ function Login() {
       <Box
         component="div"
         sx={{
-          ...style,
+          
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

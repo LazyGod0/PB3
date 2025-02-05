@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import NavBar from "../../Component/NavBar";
+import React, { useEffect, useState } from "react";
+import NavBar from "../Component/NavBar";
 import {
   Typography,
   Box,
@@ -7,7 +7,7 @@ import {
   CircularProgress,
   Grid2,
 } from "@mui/material";
-import { useAuth } from "../../Auth/useAuthForm";
+import { useAuth } from "../Auth/useAuthForm";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 import PaymentIcon from "@mui/icons-material/Payment";
 import MapsHomeWorkIcon from "@mui/icons-material/MapsHomeWork";
@@ -18,20 +18,21 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
 
 function HomeAdmin() {
-  const { userData,user } = useAuth();
-  const [loading,setLoading] = useState(false);
+  const { userData, user } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   // useEffect(() => {
-  //   if(user) {
-  //     setLoading(true);
-  //     if(userData) {
-  //       setLoading(false)
+  //   setLoading(true);
+  //   if (user && loading) {
+  //     if (userData) {
+  //       setLoading(false);
   //     }
-  //   } else {
-  //     navigate('/');
+  //   } else if (!user && !loading) {
+  //     navigate("/");
   //   }
-  // },[user,userData])
+  // }, [userData, user]);
+
   return (
     <div>
       <NavBar />
@@ -64,9 +65,15 @@ function HomeAdmin() {
         >
           <Typography variant="h5">
             ยินดีต้อนรับ{" "}
-            {loading? <CircularProgress/>:userData && userData.firstName !== "" && userData.lastName !== null
-              ? userData.firstName + " " + userData.lastName
-              : "John Doe"}
+            {loading ? (
+              <CircularProgress />
+            ) : userData &&
+              userData.firstName !== "" &&
+              userData.lastName !== null ? (
+              userData.firstName + " " + userData.lastName
+            ) : (
+              "John Doe"
+            )}
           </Typography>
 
           <Box
@@ -75,7 +82,7 @@ function HomeAdmin() {
               padding: "15px",
               display: "flex",
               flexFlow: "column nowrap",
-              gap:'5px',
+              gap: "5px",
               boxShadow: "0 0 10px gray",
             }}
           >
@@ -125,7 +132,7 @@ function HomeAdmin() {
               padding: "15px",
               display: "flex",
               flexFlow: "column nowrap",
-              gap:'5px',
+              gap: "5px",
               boxShadow: "0 0 10px gray",
             }}
           >
@@ -172,7 +179,7 @@ function HomeAdmin() {
               padding: "15px",
               display: "flex",
               flexFlow: "column nowrap",
-              gap:'5px',
+              gap: "5px",
               boxShadow: "0 0 10px gray",
             }}
           >

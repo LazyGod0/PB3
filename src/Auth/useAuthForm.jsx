@@ -13,60 +13,7 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
-  const styleMap = {
-    "/": {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    "/home": {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexFlow: "column nowrap",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "20px",
-    },
-    "/bill": {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexFlow: "column nowrap",
-      justifyContent: "center",
-      alignItems: "center",
-      gap: "20px",
-    },
-    "/profile": {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexFlow: "column nowrap",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    // "/forgetpassword": {
-    //   width: "100%",
-    //   height: "100%",
-    //   display: "flex",
-    //   flexFlow: "column nowrap",
-    //   justifyContent: "center",
-    //   alignItems: "center",
-    // },
-    // "/register": {
-    //   width: "100%",
-    //   height: "100%",
-    //   display: "flex",
-    //   flexFlow: "column nowrap",
-    //   justifyContent: "center",
-    //   alignItems: "center",
-    // },
-  };
-
   
-  // const [logOutState, setLogOutState] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [user, setUser] = useState(null);
@@ -153,7 +100,6 @@ useEffect(() => {
         user,
         userData,
         toast,
-        styleMap,
         loading
       }}
     >

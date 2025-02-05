@@ -1,128 +1,193 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { Container, Grid2 } from "@mui/material";
+import Button from "@mui/material/Button";
+import { Container, Grid2, TextField } from "@mui/material";
 import { useState } from "react";
 import NavBar from "../Component/NavBar";
+import styled from "styled-components";
+import { useEffect } from "react";
+import { useAuth } from "../Auth/useAuthForm";
 
 function BillPage() {
+  const {userData} = useAuth()
   const [amount, setAmount] = useState("");
   const promptPayID = "0839586261"; // ใส่หมายเลข PromptPay ของคุณ
 
   // ฟังก์ชันสร้าง URL QR Code
   const generatePromptPayQR = (phoneNumber, amount) => {
     let formattedAmount = parseInt(amount);
-    return `https://promptpay.io/${phoneNumber}/${formattedAmount}.png` ; 
+    return `https://promptpay.io/${phoneNumber}/${formattedAmount}.png`;
   };
+
+  const StyledImg = styled("img")(() => ({
+    width: "150px",
+    height: "150px",
+  }));
+
+  const QrImage = () => {
+    return (
+      <StyledImg
+        src={generatePromptPayQR(promptPayID, amount)}
+        alt=""
+        value={amount}
+      />
+    );
+  };
+  useEffect(() => {
+    console.log(userData)
+  },[])
   return (
     <Box>
-         <NavBar/> 
-    <Container>
-        <Grid2 size={12} sx={{mt:4 , ml:4 , mb:4}}>
-          <Typography variant="h5" sx={{ color:'#16325B', fontWeight:'700'}}>
-            ชำระบิลค่าใช้จ่าย เดือน มกราคม 2099
+      <NavBar />
+      <Container
+        sx={{
+          mt: 4,
+          p:0,
+          width: "750px",
+          height: "100%",
+          display: "flex",
+          flexFlow: "column nowrap",
+          alignItems: "center",
+          gap: "15px",
+        }}
+      >
+        <Box sx={{ width: "100%", display: "flex", justifyContent: "left" }}>
+          <Typography align="left" variant="h5" sx={{fontWeight:'bold'}}>
+            ชำระบิลค่าใช้จ่าย เดือน มกรายน 2077
           </Typography>
-        </Grid2>
-        <Grid2 size={12} >
+        </Box>
+        <Box
+          sx={{
+            p: "15px",
+            width: "750px",
+            backgroundColor: "#78B7D0",
+            borderRadius: "20px",
+            ".MuiTypography-root": {
+              textAlign: "center",
+            },
+          }}
+        >
+          <Grid2
+            container
+            size={12}
+            sx={{
+              backgroundColor: "white",
+              padding: "5px",
+              borderRadius: "10px",
+            }}
+          >
+            <Grid2
+              container
+              size={12}
+              spacing={0}
+              sx={{
+                ".MuiGrid2-root": {
+                  padding: "5px",
+                },
+              }}
+            >
+              <Grid2 size={6}>
+                <Typography>ค่าใช้จ่ายรวม</Typography>
+              </Grid2>
+              <Grid2 size={6}>
+                <Typography>สถานะการชำระเงิน</Typography>
+              </Grid2>
+            </Grid2>
+            <Grid2
+              container
+              size={12}
+              sx={{
+                ".MuiGrid2-root": {
+                  padding: "5px",
+                },
+              }}
+            >
+              <Grid2 size={6}>
+                <Typography variant="h5">9999 บาท</Typography>
+              </Grid2>
+              <Grid2 size={6}>
+                <Typography variant="h5">ยังไม่ชำระเงิน</Typography>
+              </Grid2>
+            </Grid2>
+          </Grid2>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexFlow: "column nowrap",
+            alignItems: "center",
+          }}
+        >
           <Box
             sx={{
-             px: 12,
-             mx:1,
-             py: 4,
-             backgroundColor: "#78B7D0",
-             borderRadius:5
+              p: "20px",
+              width: "750px",
+              backgroundColor: "#78B7D0",
+              display: "flex",
+              flexFlow: "column nowrap",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "15px",
+              borderRadius: "20px",
+              ".MuiTypography-root": {
+                textAlign: "center",
+              },
             }}
           >
             <Box
               sx={{
+                width: "100%",
                 display: "flex",
-                flexDirection: "column",
+                justifyContent: "left",
+                ".MuiTextField-root": {
+                  backgroundColor: "white",
+                },
               }}
             >
-              <Box 
-                sx={{ display: "flex", justifyContent: "center" ,py:2,px:0}}
-              >
-                <Box sx={{ backgroundColor:'#F2F3F4', width: "100%", p: 3,borderRadius:5,boxShadow:8}}>
-                  <Box sx={{ display: "flex", justifyContent: "space-between",mx:'50px',py:1}}>
-                    <Typography variant="h5" sx={{ fontWeight:'700' , color:'#16325B'}}>
-                          ค่าใช้จ่ายรวม
-                    </Typography>
-                    <Typography variant="h5" sx={{ fontWeight:'700' , color:'#16325B'}}>
-                      สถานะการชำระเงิน
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: "flex", justifyContent: "space-between",mx:'50px'}}>
-                    <Typography variant="h4" sx={{ fontWeight:'700' , color:'#16325B'}}>
-                      9999  บาท
-                    </Typography>
-                    <Typography variant="h4" sx={{ fontWeight:'700' , color:'#16325B'}}>
-                      ยังไม่ชำระเงิน
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-              <Box sx={{ display: "flex", justifyContent: "flex-end", mt :2,mb:0}}>
-                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3}}>
-                  <Typography variant="h5" sx={{ fontWeight:'700' , color:'white'}} >
-                    ชำระเงิน
-                  </Typography>
-                </Box>
-              </Box>
+              <Typography sx={{ color: "white" }}>
+                QR CODE ชำระเงิน (PromptPay)
+              </Typography>
+            </Box>
+            <TextField
+              sx={{ width: "150px" }}
+              placeholder="กรอกจำนวนเงิน"
+              type="number"
+              onChange={(e) => setAmount(parseFloat(e.target.value))}
+            />
+            <QrImage />
+            <Typography>
+              สแกน QR เพื่อโอนเงินเข้าบัญชี <br />
+              นาย สมชาย รักดี <br />
+              เบอร์โทรศัพท์มือถือ xxx-xxx-xx89 <br />
+              เลขที่บัญชี 0987xxxx2100 <br />
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "25px",
+                ".MuiButton-root": {
+                  transition: "all 0.5s ease",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                  },
+                },
+              }}
+            >
+              <Button sx={{ backgroundColor: "#16325B" }}>
+                <Typography sx={{ color: "white" }}>
+                  แนบหลักฐานชำระเงิน
+                </Typography>
+              </Button>
+              <Button sx={{ backgroundColor: "white" }}>
+                <Typography>แนบหลักฐานชำระเงิน</Typography>
+              </Button>
             </Box>
           </Box>
-        </Grid2>
-        <Grid2>
-          <Box sx={{
-             px: 3,
-             mx:1,
-             py: 0,
-             mt: 2,
-             backgroundColor: "#78B7D0",
-             borderRadius:5
-            }}>
-              <Typography variant="h4" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white',mt:1,pt:3
-              }}>
-              QR CODE ชำระเงิน (PromptPay)
-              </Typography>
-              <Box sx={{ backgroundColor: "#78B7D0", width: "100%", height: "600px", mt: "15px",    textAlign: "center", padding: 5 }}>
-                <input
-                  type="number"
-                  placeholder="กรอกจำนวนเงิน"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  style={{ padding: 10, fontSize: 16 }}
-                />
-                <Box sx={{ mt: 3 }}>
-                  <img src={generatePromptPayQR(promptPayID, amount)} alt=""  />
-                  <Typography sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white',mt:2
-              }}>
-                  สแกน QR เพื่อโอนเงินเข้าบัญชี <br/>
-                  นาย สมชาย รักดี <br/>
-                  เบอร์โทรศัพท์มือถือ xxx-xxx-xx89 <br/>
-                  เลขที่บัญชี 0987xxxx2100 <br/>
-                  </Typography>
-                </Box>
-                <Box sx={{display:'flex',justifyContent:'center'}}>
-                <Box sx={{ backgroundColor:'#16325B', px: 5,py:2,borderRadius:3,m:1}}>
-                  <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'white'}} >
-                    แนบหลักฐานชำระเงิน
-                  </Typography>
-                </Box>
-                <Box sx={{ backgroundColor:'white', px: 5,py:2,borderRadius:3,m:1}}>
-                  <Typography variant="h5" sx={{fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700' , color:'#16325B'}} >
-                    ยืนยันการชำระเงิน
-                  </Typography>
-                </Box>
-                </Box>
-              </Box>
-          </Box>
-        </Grid2>
-
-    </Container>
+        </Box>
+      </Container>
     </Box>
   );
 }
