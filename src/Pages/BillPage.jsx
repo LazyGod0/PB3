@@ -11,7 +11,7 @@ import NavBar from "../Component/NavBar";
 
 function BillPage() {
   const [amount, setAmount] = useState("");
-  const promptPayID = "0839586261"; // ใส่หมายเลข PromptPay ของคุณ
+  const promptPayID = "0936124069"; // ใส่หมายเลข PromptPay ของคุณ
 
   // ฟังก์ชันสร้าง URL QR Code
   const generatePromptPayQR = (phoneNumber, amount) => {

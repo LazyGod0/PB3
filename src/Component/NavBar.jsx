@@ -17,7 +17,7 @@ function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#16325B" }}>
-      <Container>
+      
         <Toolbar>
           <IconButton
             edge="start"
@@ -29,6 +29,7 @@ function NavBar() {
           </IconButton>
           <Typography
             variant="h5"
+            onClick={() => navigate("/home")}   
             component="div"
             sx={{ flexGrow: 1, color: "white" , fontWeight: 500 ,fontFamily: "Roboto, sans-serif" }}
           >
@@ -44,7 +45,7 @@ function NavBar() {
             <NotificationsActiveIcon sx={{ fontSize: 40 }} />
           </IconButton>
         </Toolbar>
-        </Container>
+        
       </AppBar>
     </Box>
   );

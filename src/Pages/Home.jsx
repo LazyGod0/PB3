@@ -39,6 +39,7 @@ function Home() {
   const navigate = useNavigate();
   const { user, logOutState } = useAuth();
   const [open, setPopUp] = useState(false);
+  const [value,setValue] = useState("");
   const [paymentData,setPayment] = useState({
     ePerUnit:0,
     eUnit:0,
@@ -63,7 +64,8 @@ function Home() {
     }
   },[user])
 
-  const handleOpen = () => {
+  const handleOpen = (e) => {
+    setValue(e.target.value)
     setPopUp(true);
   };
 
@@ -83,7 +85,7 @@ function Home() {
     <Container>
       <Grid2 size={12}>
         <Grid2 size={12}>
-          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',ml:4,py:2}}>
+          <Typography variant="h5" sx={{ color:'#16325B',fontFamily: "IBM Plex Sans Thai, sans-serif", fontWeight:'700',ml:10,py:2}}>
                 ยินดีต้อนรับ ผู้เช่า {user?.email}
             </Typography>
         </Grid2>
@@ -169,6 +171,7 @@ function Home() {
                       position: "relative",
                       backgroundColor: "#e7f5ff",
                     }}
+                    value={"home"}
                     onClick={handleOpen}
                   >
                     <StyledTypography
@@ -225,6 +228,7 @@ function Home() {
                       position: "relative",
                       backgroundColor: "#e7f5ff",
                     }}
+                    value={"water"}
                     onClick={handleOpen}
                   >
                     <StyledTypography
@@ -284,6 +288,7 @@ function Home() {
                       position: "relative",
                       backgroundColor: "#e7f5ff",
                     }}
+                    value={"elec"}
                     onClick={handleOpen}
                   >
                     <StyledTypography
@@ -355,7 +360,7 @@ function Home() {
 
 
 
-        <Box
+        {/* <Box
           sx={{
             width: "100%",
             height: "0px",
@@ -392,7 +397,7 @@ function Home() {
             </MoveTypography>
           </Box>
 
-          {/* ค่าใช้จ่ายรวม */}
+          
           <Button
             component="div"
             sx={{
@@ -412,7 +417,7 @@ function Home() {
             }}
             onClick={handleOpen}
           >
-            {/* ค่าใช้จ่ายรวม text and icon */}
+           
             <StyledTypography
               sx={{
                 position: "absolute",
@@ -449,7 +454,7 @@ function Home() {
             </StyledTypography>
           </Button>
 
-          {/* รายการค่าใช้จ่าย */}
+         
           <Box
             sx={{
               display: "grid",
@@ -457,7 +462,7 @@ function Home() {
               gap: "15px",
             }}
           >
-            {/* ค่าเช่าห้อง */}
+           
             <Button
               component="div"
               sx={{
@@ -513,7 +518,7 @@ function Home() {
               </StyledTypography>
             </Button>
 
-            {/* ค่าน้ำ */}
+            
             <Button
               component="div"
               sx={{
@@ -572,7 +577,7 @@ function Home() {
               </StyledTypography>
             </Button>
 
-            {/* ค่าไฟas */}
+            
             <Button
               component="div"
               sx={{
@@ -634,7 +639,8 @@ function Home() {
         </Box>
         <br />
         <Sumramoney />
-        <PopUp value="elec" handleClose={handleClose} open={open} />
+        <PopUp value="elec" handleClose={handleClose} open={open} /> */}
+        <PopUp value={"elec"} handleClose={handleClose} open={open} /> 
       </Grid2>
     </Container>
     </Box>
