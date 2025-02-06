@@ -8,13 +8,13 @@ import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
-import { useRoutes } from "react-router-dom";
-import "@fontsource/kanit"; // This method uses the `@fontsource` package.
+import "@fontsource/kanit"; // This method uses the @fontsource package.
 // import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
 import UserRoutes from "./routes/user-routes.jsx";
 import AddRoom from "./Pages/AddRoom.jsx";
 import ShowRoom from "./Pages/ShowRoom.jsx";
+import Logpop from "./Pages/Logpop.jsx";
 
 let theme = createTheme({
   typography: {
@@ -43,6 +43,7 @@ const AppRoutes = () => {
     { path: "/navv", element: <Navv /> },
     { path: "/his", element: <PaymentHistory /> },
     { path: "/bill", element: <BillPage /> },
+    { path: "/logpop", element: <Logpop /> },
   ]);
   return element;
 };
@@ -62,12 +63,10 @@ function App() {
           {path:'/addroom' , element: <AddRoom/>},
           { path: "/homeadmin", element: <HomeAdmin /> },
           { path: "/showroom", element: <ShowRoom/> },
-          {
-            path: "home",
-            element: <Home />,
-          },
+          {path: "home", element: <Home />,},
           { path: "bill", element: <BillPage /> },
           { path: "his", element: <PaymentHistory /> },
+          { path: "logpop", element: <Logpop /> },
         ],
       },
     ]);

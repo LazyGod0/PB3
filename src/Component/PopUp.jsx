@@ -12,6 +12,7 @@ import Grid2 from "@mui/material/Grid2";
 
 function PopUp(props) {
   const theme = useTheme();
+  
 
   const renderContent = () => {
     switch (props.value) {
@@ -31,9 +32,9 @@ function PopUp(props) {
         ];
       case "home":
         return [
-          { label: "ค่าเช่าประจำเดือน", value: "99999.00 บาท" },
-          { label: "ค่าคงค้างชำระ", value: "99999.00 บาท" },
-          { label: "ค่าใช้จ่ายเพิ่มเติม", value: "99999.00 บาท" },
+          { label: "ค่าเช่าประจำเดือน", value: " บาท" },
+          // { label: "ค่าคงค้างชำระ", value: "99999.00 บาท" },
+          // { label: "ค่าใช้จ่ายเพิ่มเติม", value: "99999.00 บาท" },
           { label: "ค่าใช้จ่ายสุทธิ", value: "99999.00 บาท" },
         ];
       default:
