@@ -66,7 +66,7 @@ function AddRoom() {
       setRoomDetail("")
       setRoomType("ห้องปกติ")
       setRoomStatus(false)
-      setRoomStatue("ว่าง")
+      setRoomStatus("ว่าง")
     }
   };
 

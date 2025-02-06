@@ -14,6 +14,7 @@ import "@fontsource/kanit"; // This method uses the `@fontsource` package.
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
 import UserRoutes from "./routes/user-routes.jsx";
 import AddRoom from "./Pages/AddRoom.jsx";
+import ShowRoom from "./Pages/ShowRoom.jsx";
 
 let theme = createTheme({
   typography: {
@@ -44,6 +45,7 @@ function App() {
         children: [
           {path:'/addroom' , element: <AddRoom/>},
           { path: "/homeadmin", element: <HomeAdmin /> },
+          { path: "/showroom", element: <ShowRoom/> },
           {
             path: "home",
             element: <Home />,

@@ -1,97 +1,104 @@
 import React from "react";
-import {
-  Container,
-  Typography,
-  Box,
-  Grid2,
-} from "@mui/material";
+import { Container, Typography, Box, Grid2 } from "@mui/material";
 import NavBar from "../Component/NavBar";
 import { DataGrid } from "@mui/x-data-grid";
 import { GridColumnMenu } from "@mui/x-data-grid";
 const PaymentHistory = () => {
-  
   const columns = [
-    { field: 'id', headerName: 'ID', flex: 1,align:'center',headerAlign:'center' },
     {
-      field: 'date',
-      headerName: 'วันที่ชำระ',
+      field: "id",
+      headerName: "ID",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "date",
+      headerName: "วันที่ชำระ",
       flex: 2, // ขยายพื้นที่คอลัมน์
       editable: false,
-      align:'center'
-      ,headerAlign:'center'
+      align: "center",
+      headerAlign: "center",
     },
     {
-      field: 'type',
-      headerName: 'ประเภท',
+      field: "type",
+      headerName: "ประเภท",
       flex: 2,
-      editable: false,align:'center'
-      ,headerAlign:'center'
+      editable: false,
+      align: "center",
+      headerAlign: "center",
     },
     {
-      field: 'cost',
-      headerName: 'ค่าใช้จ่าย',
+      field: "cost",
+      headerName: "ค่าใช้จ่าย",
       flex: 1.5,
-      editable: false,align:'center'
-      ,headerAlign:'center'
+      editable: false,
+      align: "center",
+      headerAlign: "center",
     },
     {
-      field: 'status',
-      headerName: 'สถานะ',
+      field: "status",
+      headerName: "สถานะ",
       flex: 1.5,
-      editable: false,align:'center'
-      ,headerAlign:'center'
+      editable: false,
+      align: "center",
+      headerAlign: "center",
     },
     {
-      field: 'note',
-      headerName: 'หมายเหตุ',
+      field: "note",
+      headerName: "หมายเหตุ",
       flex: 1,
-      editable: false,align:'center'
-      ,headerAlign:'center'
+      editable: false,
+      align: "center",
+      headerAlign: "center",
     },
   ];
-  
 
-const paymentData = [
-  { id:1,
-    date: "18 ม.ค. 2019",
-    type: "ค่าสมัครสมาชิก",
-    cost: 9999,
-    status: "สำเร็จ",
-    note: "-",
-  },
-  { id:2,
-    date: "18 ม.ค. 2019",
-    type: "ค่าสมัครสมาชิก",
-    cost: 6999,
-    status: "สำเร็จ",
-    note: "-",
-  },
-  { id:3,
-    date: "18 ม.ค. 2019",
-    type: "ค่าสมัครสมาชิก",
-    cost: 5999,
-    status: "สำเร็จ",
-    note: "-",
-  },
-  { id:4,
-    date: "18 ม.ค. 2019",
-    type: "ค่าสมัครสมาชิก",
-    cost: 8999,
-    status: "สำเร็จ",
-    note: "-",
-  },
-];
-function CustomColumnMenu(props) {
-  return (
-    <GridColumnMenu
-      {...props}
-      slots={{
-        // Hide `columnMenuColumnsItem`
-        columnMenuColumnsItem: null,
-      }}
-    />
-  );
-}
+  const paymentData = [
+    {
+      id: 1,
+      date: "18 ม.ค. 2019",
+      type: "ค่าสมัครสมาชิก",
+      cost: 9999,
+      status: "สำเร็จ",
+      note: "-",
+    },
+    {
+      id: 2,
+      date: "18 ม.ค. 2019",
+      type: "ค่าสมัครสมาชิก",
+      cost: 6999,
+      status: "สำเร็จ",
+      note: "-",
+    },
+    {
+      id: 3,
+      date: "18 ม.ค. 2019",
+      type: "ค่าสมัครสมาชิก",
+      cost: 5999,
+      status: "สำเร็จ",
+      note: "-",
+    },
+    {
+      id: 4,
+      date: "18 ม.ค. 2019",
+      type: "ค่าสมัครสมาชิก",
+      cost: 8999,
+      status: "สำเร็จ",
+      note: "-",
+    },
+  ];
+  function CustomColumnMenu(props) {
+    return (
+      <GridColumnMenu
+        {...props}
+        slots={{
+          // Hide `columnMenuColumnsItem`
+          columnMenuColumnsItem: null,
+        }}
+      />
+    );
+  }
   return (
     <Box>
       <NavBar />
@@ -101,8 +108,18 @@ function CustomColumnMenu(props) {
             ประวัติการชำระเงิน
           </Typography>
         </Grid2>
-        <Grid2 size={12} >
-          <Box sx={{ height: 'auto','.MuiDataGrid-columnHeader': {backgroundColor:'#16325B',color:'white'}}}>
+        <Grid2 size={12}>
+          <Box
+            sx={{
+              height: "auto",
+              ".MuiDataGrid-columnHeader": {
+                backgroundColor: "#16325B",
+                color: "white",
+              },
+              ".MuiDataGrid-sortIcon": { color: "white" },
+              ".css-1ckov0h-MuiSvgIcon-root":{color:'white'}
+            }}
+          >
             <DataGrid
               rows={paymentData}
               columns={columns}
@@ -116,17 +133,16 @@ function CustomColumnMenu(props) {
               slots={{ columnMenu: CustomColumnMenu }}
               disableColumnResize={true}
               pageSizeOptions={[5]}
-              checkboxSelection
+              disableRowSelectionOnClick
               sx={{
-
-                ' .MuiDataGrid-row:nth-of-type(odd)': {
-                  backgroundColor: '#78B7D0',
+                " .MuiDataGrid-row:nth-of-type(odd)": {
+                  backgroundColor: "#78B7D0",
                 },
-                ' .MuiDataGrid-row:nth-of-type(even)': {
-                  backgroundColor: '#F2F3F4', 
+                " .MuiDataGrid-row:nth-of-type(even)": {
+                  backgroundColor: "#F2F3F4",
                 },
-                ' .MuiDataGrid-cell': {
-                  color: '#000',
+                " .MuiDataGrid-cell": {
+                  color: "#000",
                 },
               }}
             />
