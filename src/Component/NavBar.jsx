@@ -4,47 +4,55 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import BedIcon from "@mui/icons-material/Bed";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import HomeIcon from '@mui/icons-material/Home';
-import { Container, Grid2 } from "@mui/material";
-import { useState } from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import { Button } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from "../Auth/useAuthForm";
 import { useNavigate } from "react-router-dom";
+
 function NavBar() {
-
-    const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const {handleSignOut} = useAuth();
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box >
       <AppBar position="static" sx={{ backgroundColor: "#16325B" }}>
-      
-        <Toolbar>
-          <IconButton
-            edge="start"
-            aria-label="bed icon"
-            onClick={() => navigate("/home")} 
-            sx={{ mr: 1, color: "white" }}
+        
+          <Toolbar
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            <HomeIcon sx={{ fontSize: 50 }}   />
-          </IconButton>
-          <Typography
-            variant="h5"
-            onClick={() => navigate("/home")}   
-            component="div"
-            sx={{ flexGrow: 1, color: "white" , fontWeight: 500 ,fontFamily: "Roboto, sans-serif" }}
-          >
-            OUR-HOME
-          </Typography>
-          <IconButton
-            edge="start"
-            aria-label="notifications icon"
-            sx={{ mr: 0, color: "white" }}
-            onClick={(e) => 
-              alert("จ่ายตังด้วยน้อง")}
-          >
-            <NotificationsActiveIcon sx={{ fontSize: 40 }} />
-          </IconButton>
-        </Toolbar>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <IconButton
+                edge="start"
+                aria-label="home icon"
+                sx={{ color: "white" }}
+                onClick={(e) => navigate('/home')}
+              >
+                <HomeIcon sx={{ fontSize: 32 }} />
+              </IconButton>
+              <Typography variant="h6" sx={{ color: "white" }}>
+                Our-Home
+              </Typography>
+            </Box>
+            <Box>
+            <IconButton
+              edge="end"
+              aria-label="notifications icon"
+              sx={{ color: "white" }}
+            >
+              <NotificationsActiveIcon sx={{ fontSize: 32 }} />
+            </IconButton>     
+            <Button startIcon={<LogoutIcon sx={{color:'white',ml:'20px'}}/>} onClick={handleSignOut}>
+              <Typography variant="body2" sx={{color:'white'}}>
+                ออกจากระบบ
+              </Typography>
+            </Button>
+            </Box>
+          </Toolbar>
         
       </AppBar>
     </Box>
