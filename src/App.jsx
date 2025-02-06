@@ -1,23 +1,33 @@
 import React from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
-import ForgetPassword from "./Pages/ForgetPassword.jsx";
-import Sumramoney from "./Pages/Sumramoney.jsx";
-import HomeV2 from "./Pages/HomeV2.jsx";
 import NavBar from "./Component/NavBar.jsx";
-import Navv from "./Component/Navv.jsx";
 import Home from "./Pages/Home.jsx";
+import HomeAdmin from "./Pages/HomeAdmin.jsx";
 import BillPage from "./Pages/BillPage.jsx";
 import "./App.css";
 import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { useRoutes } from "react-router-dom";
+import "@fontsource/kanit"; // This method uses the `@fontsource` package.
+// import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
-import "@fontsource/roboto"; 
+import UserRoutes from "./routes/user-routes.jsx";
+import AddRoom from "./Pages/AddRoom.jsx";
+import ShowRoom from "./Pages/ShowRoom.jsx";
 
-
-const theme = createTheme({
+let theme = createTheme({
   typography: {
-    fontFamily: "Roboto, sans-serif",
+    fontFamily: ["Kanit,san-serif"].join(","),
+  },
+  palette: {
+    primary: {
+      main: "#344CB7",
+      dark: "#133E87",
+    },
+    secondary: {
+      main: "#577BC1",
+    },
   },
 });
 
@@ -38,12 +48,37 @@ const AppRoutes = () => {
 };
 
 function App() {
+  function AppRoutes() {
+    let element = useRoutes([
+      
+      {
+        path: "",
+        element: <Login />,
+      },
+      {
+        path: "",
+        element: <UserRoutes />,
+        children: [
+          {path:'/addroom' , element: <AddRoom/>},
+          { path: "/homeadmin", element: <HomeAdmin /> },
+          { path: "/showroom", element: <ShowRoom/> },
+          {
+            path: "home",
+            element: <Home />,
+          },
+          { path: "bill", element: <BillPage /> },
+          { path: "his", element: <PaymentHistory /> },
+        ],
+      },
+    ]);
+    return element;
+  }
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
+        <AuthProvider>
           <AppRoutes />
-        </BrowserRouter>
+        </AuthProvider>
       </ThemeProvider>
     </AuthProvider>
   );
