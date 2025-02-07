@@ -8,9 +8,13 @@ import NavBar from "../Component/NavBar";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useAuth } from "../Auth/useAuthForm";
+import { useLocation } from "react-router-dom";
 
 function BillPage() {
-  const {userData} = useAuth()
+  const location = useLocation();
+  const { user, userData } = useAuth();
+  // ดึงค่าที่ส่งมาจาก Home
+  // const {userData} = useAuth()
   const [amount, setAmount] = useState("");
   const promptPayID = "0936124069"; // ใส่หมายเลข PromptPay ของคุณ
 
@@ -25,6 +29,17 @@ function BillPage() {
     height: "150px",
   }));
 
+  const TotalAM = (
+    parseFloat(userData.eUnit * userData.ePerUnit) +
+    parseFloat(userData.wUnit * userData.wPerUnit) +
+    parseFloat(userData.homeRent)
+  ).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  
+  
+
   const QrImage = () => {
     return (
       <StyledImg
@@ -36,6 +51,11 @@ function BillPage() {
   };
   useEffect(() => {
     console.log(userData)
+    setAmount((
+      parseFloat(userData.eUnit * userData.ePerUnit) +
+      parseFloat(userData.wUnit * userData.wPerUnit) +
+      parseFloat(userData.homeRent)
+    ))
   },[])
   return (
     <Box>
@@ -104,7 +124,7 @@ function BillPage() {
               }}
             >
               <Grid2 size={6}>
-                <Typography variant="h5">9999 บาท</Typography>
+                <Typography variant="h5">{TotalAM.toLocaleString()} บาท</Typography>
               </Grid2>
               <Grid2 size={6}>
                 <Typography variant="h5">ยังไม่ชำระเงิน</Typography>
@@ -150,12 +170,12 @@ function BillPage() {
                 QR CODE ชำระเงิน (PromptPay)
               </Typography>
             </Box>
-            <TextField
+            {/* <TextField
               sx={{ width: "150px" }}
               placeholder="กรอกจำนวนเงิน"
               type="number"
               onChange={(e) => setAmount(parseFloat(e.target.value))}
-            />
+            /> */}
             <QrImage />
             <Typography>
               สแกน QR เพื่อโอนเงินเข้าบัญชี <br />

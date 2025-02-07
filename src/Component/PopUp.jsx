@@ -9,9 +9,15 @@ import {
   useTheme,
 } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
+import { useAuth } from "../Auth/useAuthForm";
 
 function PopUp(props) {
   const theme = useTheme();
+  const { user, userData } = useAuth();
+  const homeRent = (parseFloat(userData.homeRent)).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   
 
   const renderContent = () => {
@@ -32,10 +38,10 @@ function PopUp(props) {
         ];
       case "home":
         return [
-          { label: "ค่าเช่าประจำเดือน", value: " บาท" },
+          { label: "ค่าเช่าประจำเดือน", value: `${homeRent} บาท` },
           // { label: "ค่าคงค้างชำระ", value: "99999.00 บาท" },
           // { label: "ค่าใช้จ่ายเพิ่มเติม", value: "99999.00 บาท" },
-          { label: "ค่าใช้จ่ายสุทธิ", value: "99999.00 บาท" },
+          { label: "ค่าใช้จ่ายสุทธิ", value: `${homeRent} บาท` },
         ];
       default:
         return [];

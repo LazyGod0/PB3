@@ -10,6 +10,9 @@ import { useAuth } from "../Auth/useAuthForm.jsx";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import HomeIcon from "@mui/icons-material/Home";
 import WaterIcon from "@mui/icons-material/Water";
+import SearchIcon from "@mui/icons-material/Search";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import { useLocation } from "react-router-dom";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   fontFamily: "IBM Plex Sans Thai, sans-serif",
@@ -30,6 +33,12 @@ const TTypography = styled(Typography)(({ theme }) => ({
   textAlign: "left",
   color: "#16325B",
   fontWeight: 700,
+}));
+const WhiteTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: "Kanit",
+  textAlign: "center",
+  color: "white",
+  fontWeight: "bold",
 }));
 
 function Home() {
@@ -83,8 +92,6 @@ function Home() {
   return (
     <div>
       <NavBar />
-      <br />
-      <br />
 
       <Box
         sx={{
@@ -92,6 +99,8 @@ function Home() {
           display: "flex",
           flexFlow: "column nowrap",
           alignItems: "center",
+          backgroundColor:'',
+          pt:5
         }}
       >
         <Box sx={{ textAlign: "left", padding: "0 20px" }}>
@@ -112,7 +121,8 @@ function Home() {
           <br />
           <Box
             sx={{
-              // padding: "20px",
+              px:5,
+              py:2,
               // boxShadow: "0px 0px 10px black",
               width: "100%",
               maxWidth: "750px",
@@ -122,7 +132,7 @@ function Home() {
               height: "100%",
               boxShadow: "0px 0px 10px rgb(0,0,0,0.6)",
               borderRadius: "10px",
-              padding: "10px",
+              // padding: "10px",
               color: "black",
               ".MuiButton-contained": {
                 "&:hover": {
@@ -402,7 +412,71 @@ function Home() {
             <Box sx={{ pt: "25px" }}></Box>
           </Box>
           <br />
-          <PayAndHis />
+          <Box
+        component="div"
+        sx={{
+          width: "750px",
+          height: "20%",
+          display: "grid",
+          gridTemplate: "repeat(1, 1fr) / repeat(2, 1fr)",
+          gap: "15px",
+        }}
+      >
+        <Box
+          component="div"
+          sx={{
+            height: "100%",
+            boxShadow: "0 0 5px black",
+            borderRadius: "15px",
+          }}
+        >
+          <Button
+            sx={{
+              width: "100%",
+              height: "100%",
+              padding: "10px",
+              backgroundColor: "#16325B",
+            }}
+            onClick={(e) => navigate('/his')}
+          >
+            <WhiteTypography
+              variant="h5"
+              component="h5"
+              sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+            >
+              ประวัติการชำระเงิน
+              <SearchIcon sx={{ fontSize: "2rem", color: "white" ,ml: "20px" }} />
+            </WhiteTypography>
+          </Button>
+        </Box>
+        <Box
+          component="div"
+          sx={{
+            height: "100%",
+            boxShadow: "0 0 5px black",
+            borderRadius: "15px",
+          }}
+        >
+          <Button
+            sx={{
+              width: "100%",
+              height: "100%",
+              padding: "8px",
+              backgroundColor: "#16325B",
+            }}
+            onClick={(e) => navigate('/bill')}
+          >
+            <WhiteTypography
+              variant="h5"
+              component="h5"
+              sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+            >
+              ชำระเงิน
+              <CreditCardIcon sx={{ fontSize: "2rem", color: "white",ml: "20px" }} />
+            </WhiteTypography>
+          </Button>
+        </Box>
+      </Box>
           <PopUp value={value} handleClose={handleClose} open={open} />
         </Box>
       </Box>
