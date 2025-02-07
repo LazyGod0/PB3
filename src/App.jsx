@@ -10,11 +10,11 @@ import { AuthProvider } from "./Auth/useAuthForm.jsx";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useRoutes } from "react-router-dom";
 import "@fontsource/kanit"; // This method uses the `@fontsource` package.
-// import ProtectedRoutes from "./Component/ProtectedRoutes.jsx";
 import PaymentHistory from "./Pages/PaymentHistory.jsx";
 import UserRoutes from "./routes/user-routes.jsx";
 import AddRoom from "./Pages/AddRoom.jsx";
 import ShowRoom from "./Pages/ShowRoom.jsx";
+import UserRoleRoutes from "./routes/user-role-routes.jsx";
 
 let theme = createTheme({
   typography: {
@@ -34,37 +34,38 @@ let theme = createTheme({
 function App() {
   function AppRoutes() {
     let element = useRoutes([
-      
       {
-        path: "",
+        path: "/", 
         element: <Login />,
       },
       {
-        path: "",
+        path: "/", 
         element: <UserRoutes />,
         children: [
-          {path:'/addroom' , element: <AddRoom/>},
-          { path: "/homeadmin", element: <HomeAdmin /> },
-          { path: "/showroom", element: <ShowRoom/> },
-          {
-            path: "home",
-            element: <Home />,
-          },
+          { path: "home", element: <Home /> },
           { path: "bill", element: <BillPage /> },
           { path: "his", element: <PaymentHistory /> },
+          
+        ],
+      },
+      {
+        path: "homeadmin", 
+        element: <UserRoleRoutes />,
+        children: [
+          { path: "addroom", element: <AddRoom /> },
+          { path: "dashboard", element: <HomeAdmin /> },
+          { path: "showroom", element: <ShowRoom /> },
         ],
       },
     ]);
     return element;
   }
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

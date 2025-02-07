@@ -3,7 +3,7 @@ import { useAuth } from "../Auth/useAuthForm";
 import { Navigate, Outlet } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 
-const UserRoutes = () => {
+const UserRoleRoutes = () => {
   const auth = useAuth();
 
   if (auth.loading) {
@@ -22,18 +22,18 @@ const UserRoutes = () => {
       </Box>
     );
   }
-
-  if (!auth?.user) {
-    return <Navigate to="/" />;
-  }
-
-  if(auth.userData) {
-    if(auth.userData.role === "admin") {
-      return <Navigate to = "/homeadmin/dashboard"/>
-    }  
+  if(!auth.user) {
+    return <Navigate to ="/"/>
   }
   
+  if(auth.userData) {
+    if (auth.userData.role === "user") {
+      return <Navigate to="/home" />;
+    }
+  }
+  
+
   return <Outlet />;
 };
 
-export default UserRoutes;
+export default UserRoleRoutes;
